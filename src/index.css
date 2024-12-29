@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "WinterTrendy";
+  src: url("/fonts/WinterTrendy.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "WinterTrendy", sans-serif;
+}
+
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+  color: white;
+}
+
+.custom-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.custom-swiper .swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+.custom-popup {
+  width: 400px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.custom-confirm-button {
+  color: #6fd1f8 !important;
+  border: thin solid #6fd1f8;
+}
+
+.custom-cancel-button {
+  color: #b91c1c !important;
+  border: thin solid #b91c1c;
+}
