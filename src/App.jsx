@@ -18,7 +18,7 @@ import Park from "./components/park/Park";
 import Gym from "./components/gym/Gym";
 import Taxi from "./components/taxi/Taxi";
 import Rent from "./components/rent/Rent";
-import Movie from "./components/movieTheater/movie";
+import Movie from "./components/movieTheater/Movie";
 import Supermarket from "./components/supermarket/Supermarket";
 import Tourism from "./components/tourism/Tourism";
 import Delivery from "./components/delivery/Delivery";
