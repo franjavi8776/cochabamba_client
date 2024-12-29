@@ -20,7 +20,7 @@ export const SET_LOADING = "SET_LOADING";
 export const UPDATE_USER = "UPDATE_USER";
 
 //! dev
-// const endpoint = "http://localhost:3000/";
+//const endpoint = "http://localhost:3000/";
 
 //! prod
 const endpoint = "https://cochabamba-server.vercel.app/";

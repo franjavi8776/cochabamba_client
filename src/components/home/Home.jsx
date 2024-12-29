@@ -50,7 +50,7 @@ const Home = () => {
 
   const categoryStyles = (offsetX, offsetY) => {
     const isMobile = window.innerWidth < 768;
-    const mobileOffsetMultiplier = 0.38;
+    const mobileOffsetMultiplier = 0.37;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
     const tabletOffsetMultiplier = 0.7;
     return {
@@ -186,215 +186,215 @@ const Home = () => {
           </>
         )}
         <h5
-          style={categoryStyles(0, -20)}
-          className="w-[260px] md:w-[450px] lg:w-[650px]"
+          style={categoryStyles(0, 0)}
+          className="w-[235px] md:w-[430px] lg:w-[600px]"
         >
           <img src="logo.png" alt="logo" />
         </h5>
-        <div style={categoryStyles(-280, -290)}>
+        <div style={categoryStyles(-280, -210)}>
           <Category
             category="restaurant"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="restaurant.png" alt="restaurant" />}
           />
         </div>
-        <div style={categoryStyles(280, -290)}>
+        <div style={categoryStyles(280, -210)}>
           <Category
             category="hotel"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="hotel.png" alt="hotel" />}
           />
         </div>
-        <div style={categoryStyles(-280, 290)}>
+        <div style={categoryStyles(-280, 210)}>
           <Category
             category="movie"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="cinema.png" alt="cinema" />}
           />
         </div>
-        <div style={categoryStyles(280, 290)}>
+        <div style={categoryStyles(280, 210)}>
           <Category
             category="tourism"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="tourism.png" alt="tourism" />}
           />
         </div>
-        <div style={categoryStyles(0, -290)}>
+        <div style={categoryStyles(0, -210)}>
           <Category
             category="hospital"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="hospital.png" alt="hospital" />}
           />
         </div>
-        <div style={categoryStyles(450, 0)}>
+        <div style={categoryStyles(425, 0)}>
           <Category
             category="park"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="park.png" alt="park" />}
           />
         </div>
-        <div style={categoryStyles(-450, 0)}>
+        <div style={categoryStyles(-425, 0)}>
           <Category
             category="disco"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="clubs.png" alt="clubs" />}
           />
         </div>
-        <div style={categoryStyles(0, 290)}>
+        <div style={categoryStyles(0, 210)}>
           <Category
             category="supermarket"
             width={
               window.innerWidth < 768
-                ? "65px"
+                ? "60px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
-                : "140px"
+                : "130px"
             }
             icon={<img src="supermarket.png" alt="supermarket" />}
           />
         </div>
-        <div style={categoryStyles(-140, -205)}>
+        <div style={categoryStyles(-140, -165)}>
           <Category
             category="university"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="university.png" alt="university" />}
           />
         </div>
-        <div style={categoryStyles(140, -205)}>
+        <div style={categoryStyles(140, -165)}>
           <Category
             category="store"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="shopping.png" alt="shopping" />}
           />
         </div>
-        <div style={categoryStyles(-140, 205)}>
+        <div style={categoryStyles(-140, 165)}>
           <Category
             category="gym"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="gym.png" alt="gym" />}
           />
         </div>
-        <div style={categoryStyles(140, 205)}>
+        <div style={categoryStyles(140, 165)}>
           <Category
             category="taxi"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="taxi.png" alt="taxi" />}
           />
         </div>
-        <div style={categoryStyles(-430, -205)}>
+        <div style={categoryStyles(-420, -165)}>
           <Category
             category="emergency"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="emergency.png" alt="emergencias" />}
           />
         </div>
-        <div style={categoryStyles(430, -205)}>
+        <div style={categoryStyles(420, -165)}>
           <Category
             category="delivery"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="calendary.png" alt="calendario" />}
           />
         </div>
-        <div style={categoryStyles(-430, 205)}>
+        <div style={categoryStyles(-420, 165)}>
           <Category
             category="university"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="university.png" alt="universidades" />}
           />
         </div>
-        <div style={categoryStyles(430, 205)}>
+        <div style={categoryStyles(420, 165)}>
           <Category
             category="rent"
             width={
               window.innerWidth < 768
-                ? "50px"
+                ? "45px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
-                : "100px"
+                : "90px"
             }
             icon={<img src="rent.png" alt="alquileres" />}
           />
