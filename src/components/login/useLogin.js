@@ -26,12 +26,13 @@ export const useLogin = () => {
         background: "transparent",
         color: "#eff6ff",
         width: "400px",
-        confirmButtonColor: "transparent",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-      navigate("/");
+        showConfirmButton: false,
+        timer: 1000,
+        // confirmButtonColor: "transparent",
+        // customClass: {
+        //   confirmButton: "custom-confirm-button",
+        // },
+      }).then(() => navigate("/"));
     }
 
     if (error) {

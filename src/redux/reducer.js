@@ -118,7 +118,7 @@ const reducer = (state = initialState, action) => {
           restaurant.id === action.payload.id ? action.payload : restaurant
         ),
       };
-    case UPDATE_RESTAURANT_STATUS:
+    case UPDATE_RESTAURANT_STATUS: {
       const updatedRestaurantStatus = state.restaurants.map((restaurant) =>
         restaurant.id === action.payload.id
           ? { ...restaurant, isActive: action.payload.isActive }
@@ -135,7 +135,8 @@ const reducer = (state = initialState, action) => {
         restaurants: updatedRestaurantStatus,
         restaurantsByUser: updatedRestaurantsByUserStatus,
       };
-    case DELETE_RESTAURANT:
+    }
+    case DELETE_RESTAURANT: {
       const updatedRestaurants = state.restaurants.filter(
         (restaurant) => restaurant.id !== action.payload
       );
@@ -148,17 +149,19 @@ const reducer = (state = initialState, action) => {
         restaurantsByUser: updatedRestaurantsByUser,
         restaurants: updatedRestaurants,
       };
+    }
     case GET_COMMENTS_BY_RESTAURANT:
       return {
         ...state,
         comments: action.payload,
       };
-    case CREATE_COMMENT:
+    case CREATE_COMMENT: {
       const newComments = [...state.comments, action.payload];
       return {
         ...state,
         comments: newComments,
       };
+    }
 
     default:
       return {

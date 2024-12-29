@@ -6,8 +6,7 @@ const HomeModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleRegisterRestaurant = () => {
-    onClose();
+  const handleRestaurant = () => {
     navigate("/restaurant_form");
   };
 
@@ -25,7 +24,7 @@ const HomeModal = ({ isOpen, onClose }) => {
         </h1>
 
         <div className="flex flex-wrap justify-center items-center mt-5 text-lg gap-5 ">
-          <button onClick={handleRegisterRestaurant}>
+          <button onClick={handleRestaurant}>
             <p className="py-2 px-4 hover:text-secondary">Restaurant</p>
           </button>
           <button>

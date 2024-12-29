@@ -22,9 +22,10 @@ import Movie from "./components/movieTheater/Movie";
 import Supermarket from "./components/supermarket/Supermarket";
 import Tourism from "./components/tourism/Tourism";
 import Delivery from "./components/delivery/Delivery";
+import { useSelector } from "react-redux";
 
 function App() {
-  const isAuthenticated = localStorage.getItem("token");
+  const isAuthenticated = useSelector((state) => state.token);
   return (
     <>
       <ThemeProvider>
