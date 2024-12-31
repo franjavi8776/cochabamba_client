@@ -234,7 +234,7 @@ const RestaurantForm = () => {
     } else {
       dispatch(createRestaurant(restaurant, newImages, id));
       Swal.fire({
-        position: "top-end",
+        position: "top",
         text: "Restaurant registrado correctamente",
         icon: "success",
         color: "#f0f8ff",

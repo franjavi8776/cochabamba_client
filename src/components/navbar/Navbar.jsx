@@ -30,7 +30,7 @@ const Navbar = ({ nameCategory }) => {
       <Link to="/" className="absolute top-5 left-5">
         <button className="text-sm md:text-lg hover:text-secondary">
           <i
-            className="fa fa-arrow-left  text-secondary mr-1"
+            className="fa fa-arrow-left  text-secondary mr-1 "
             aria-hidden="true"
           ></i>
 

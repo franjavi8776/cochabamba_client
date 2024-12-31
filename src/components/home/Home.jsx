@@ -10,6 +10,7 @@ import { ThemeContext } from "../theme/ThemeContext";
 import Category from "../category/Category";
 import Footer from "../footer/Footer";
 import HomeModal from "./HomeModal";
+import CochabambaModal from "./CochabambaModal";
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,6 +109,10 @@ const Home = () => {
     setIsModalOpen(true);
   };
 
+  const handleModalCochabamba = () => {
+    setIsModalOpen(true);
+  };
+
   const handleClickRestaurants = () => {
     navigate("/restaurantsByUser");
   };
@@ -117,7 +122,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-[100vh] text-primary bg-neutral dark:bg-primary dark:text-neutral">
+    <div className="flex flex-col min-h-[100vh] text-primary bg-neutral_opacity dark:bg-primary_opacity dark:text-neutral">
       <div className="flex-1">
         <button
           onClick={toggleTheme}
@@ -194,7 +199,9 @@ const Home = () => {
           style={categoryStyles(0, 0)}
           className="w-[215px] md:w-[430px] lg:w-[600px]"
         >
-          <img src="logo.png" alt="logo" />
+          <button onClick={handleModalCochabamba}>
+            <img src="logo.png" alt="logo" />
+          </button>
         </h5>
         <div style={categoryStyles(-280, -210)}>
           <Category
@@ -406,6 +413,10 @@ const Home = () => {
         </div>
       </div>
       <HomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <CochabambaModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
 
       <Footer />
     </div>
