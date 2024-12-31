@@ -18,9 +18,10 @@ export const ERROR_404 = "ERROR_404";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const SET_LOADING = "SET_LOADING";
 export const UPDATE_USER = "UPDATE_USER";
+export const CLEAR_RESTAURANTS_BY_CATEGORY = "CLEAR_RESTAURANTS_BY_CATEGORY";
 
 //! dev
-//const endpoint = "http://localhost:3000/";
+// const endpoint = "http://localhost:3000/";
 
 //! prod
 const endpoint = "https://cochabamba-server.vercel.app/";

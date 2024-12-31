@@ -21,7 +21,7 @@ const initialState = {
   users: [],
   email: "",
   name: localStorage.getItem("name") || "",
-  token: localStorage.getItem("token") || null,
+  token: localStorage.getItem("token") || false,
   id: localStorage.getItem("id") || "",
   restaurants: [],
   restaurantsByUser: [],
@@ -70,7 +70,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         email: "",
-        token: null,
+        token: false,
         name: "",
         id: "",
       };
@@ -94,6 +94,7 @@ const reducer = (state = initialState, action) => {
         totalResults: action.payload.totalResults,
         error: null,
       };
+
     case CLEAR_ERROR:
       return {
         ...state,

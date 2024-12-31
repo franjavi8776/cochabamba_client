@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createComment, getCommentsByRestaurant } from "../../redux/actions";
 import CarouselImages from "./Carrousel";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
 const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   const [comment, setComment] = useState("");
@@ -11,20 +12,25 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getCommentsByRestaurant(restaurant.id));
+  }, [dispatch, restaurant.id]);
+
   const comments = useSelector((state) => state.comments);
   const id = useSelector((state) => state.id);
-
-  if (!isOpen) return null;
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCPXN8HnP527MrOKcu-3QYvHypzzG-mh2I",
     id: "google-maps-script",
   });
 
+  if (!isOpen) return null;
+
   const desktopMapStyle = { width: "400px", height: "200px" };
   const mobileMapStyle = {
-    width: "300px",
-    height: "180px",
+    width: "270px",
+    height: "200px",
+    borderRadius: "10px",
   };
 
   const center = {
@@ -48,13 +54,14 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
       });
       Swal.fire({
         position: "top",
-        text: "Comentario registrado correctamente",
-        background: "transparent",
+        title: "Comentario registrado!",
+        background: "black",
         color: "#eff6ff",
         width: "400px",
         confirmButtonColor: "transparent",
         customClass: {
-          confirmButton: "custom-confirm-button",
+          title: "text-xs md:text-lg",
+          confirmButton: "custom-confirm-button text-xs md:text-lg",
         },
       });
 
@@ -63,13 +70,9 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
     }
   };
 
-  useEffect(() => {
-    dispatch(getCommentsByRestaurant(restaurant.id));
-  }, [dispatch]);
-
   return (
     <div className="fixed inset-0 bg-primary text-primary bg-opacity-50 flex items-center justify-center z-50 ">
-      <div className="bg-neutral w-[350px] md:w-[800px] lg:w-[1000px] max-h-[90vh] p-6 rounded-lg shadow-lg relative overflow-y-auto">
+      <div className="bg-neutral w-[320px] md:w-[800px] lg:w-[1000px] max-h-[90vh] p-6 rounded-lg shadow-lg relative overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute  top-4 right-5 text-3xl text-primary hover:text-secondary"
@@ -81,7 +84,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
             <CarouselImages images={restaurant.images} />
 
             {isLoaded ? (
-              <div className="border border-primary shadow-black shadow-md ">
+              <div className="border border-primary shadow-black shadow-md rounded-lg">
                 <GoogleMap
                   mapContainerStyle={
                     window.innerWidth <= 768 ? mobileMapStyle : desktopMapStyle
@@ -97,12 +100,13 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
             )}
           </div>
           <div>
-            <div className="text-primary text-lg space-y-1.5">
+            <div className="text-primary text-sm md:text-lg space-y-1 md:space-y-1.5">
               <h1>
-                Restaurant: <span className="font-bold">{restaurant.name}</span>
+                <small className="text-accent">Restaurant:</small>{" "}
+                <span>{restaurant.name}</span>
               </h1>
               <p>
-                Pedidos:
+                <small className="text-accent">Pedidos:</small>
                 <a
                   href={`https://wa.me/${restaurant.codArea}${
                     restaurant.phone
@@ -117,36 +121,33 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                     className="fa fa-whatsapp mx-2 font-bold text-secondary"
                     aria-hidden="true"
                   ></i>
-                  <span className="font-bold">
-                    {`${restaurant.codArea} ${restaurant.phone}`}
-                  </span>
+                  <span>{`${restaurant.codArea} ${restaurant.phone}`}</span>
                 </a>
               </p>
               <p>
-                Ofertas:
-                <span className="font-bold mx-2">{restaurant.offers[0]}</span>
-              </p>
-              <p>Zona: {restaurant.zone}</p>
-              <p>
-                Ciudad:
-                <span className="font-bold mx-2">{restaurant.city}</span>
+                <small className="text-accent">Ofertas:</small>
+                <span className="mx-2">{restaurant.offers[0]}</span>
               </p>
               <p>
-                Pais:
-                <span className="font-bold mx-2">{restaurant.country}</span>
+                <small className="text-accent">Zona:</small> {restaurant.zone}
               </p>
               <p>
-                Lunes a Viernes:
-                <span className="text-[16px] font-bold mx-2">
-                  {restaurant.time.weekdays}
-                </span>
+                <small className="text-accent">Ciudad:</small>
+                <span className="mx-2">{restaurant.city}</span>
+              </p>
+              <p>
+                <small className="text-accent">Pais:</small>
+                <span className="mx-2">{restaurant.country}</span>
+              </p>
+              <p>
+                <small className="text-accent">Lun-Vie:</small>
+                <span className=" mx-2">{restaurant.time.weekdays}</span>
                 <br />
-                Sabados:
-                <span className="text-[16px] font-bold mx-2">
-                  {restaurant.time.weekends}
-                </span>
+                <small className="text-accent">Sab-Dom:</small>
+                <span className=" mx-2">{restaurant.time.weekends}</span>
               </p>
               <p>
+                <small className="text-accent">Web: </small>
                 <a
                   href={restaurant.web}
                   target="_blank"
@@ -163,7 +164,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Escribe tu comentario"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full border border-primary p-2 rounded-md"
+                  className="w-full border border-primary p-2 rounded-md text-xs md:text-lg"
                   required
                 />
                 <input
@@ -171,14 +172,14 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Calificación (1-5)"
                   value={stars}
                   onChange={(e) => setStars(e.target.value)}
-                  className="w-full mt-2 border border-primary p-2 rounded-md"
+                  className="w-full mt-2 border border-primary p-2 rounded-md text-xs md:text-lg"
                   required
                   min="1"
                   max="5"
                 />
                 <button
                   type="submit"
-                  className="mt-4 bg-primary text-neutral px-4 py-2 rounded-md hover:text-secondary"
+                  className="mt-4 bg-primary text-neutral px-4 py-2 rounded-md text-xs md:text-lg hover:text-secondary "
                 >
                   Enviar comentario
                 </button>
@@ -188,7 +189,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
         </div>
 
         <div className="w-full mt-5">
-          <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
+          <h2 className="text-lg md:text-2xl font-bold mb-4">Comentarios</h2>
           <div className="max-h-[150px] overflow-y-auto border border-gray-950 p-4 rounded-md text-[12px]">
             {comments.length > 0 &&
               comments.map((c) => (
@@ -206,6 +207,31 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
       </div>
     </div>
   );
+};
+
+RestaurantModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  restaurant: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    codArea: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    offers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    zone: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+    time: PropTypes.shape({
+      weekdays: PropTypes.string.isRequired,
+      weekends: PropTypes.string.isRequired,
+    }).isRequired,
+    web: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default RestaurantModal;

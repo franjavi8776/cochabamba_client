@@ -261,10 +261,12 @@ const RestaurantForm = () => {
       <div className="m-auto mb-20">
         <form
           onSubmit={handleSubmit}
-          className="w-[380px] md:w-[700px] lg:w-[900px] min-h-[700px] p-5 bg-neutral border border-secondary first-line:rounded-xl rounded-lg"
+          className="w-[320px] md:w-[700px] lg:w-[900px] min-h-[700px] p-5 bg-neutral border border-secondary first-line:rounded-xl rounded-lg"
         >
-          <h1 className="m-8 text-3xl text-center">Registro de Restaurant</h1>
-          <div className="w-[100%] flex mb-3">
+          <h1 className="m-8 text-sm md:text-3xl text-center">
+            Registro de Restaurant
+          </h1>
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[25%] p-1">Nombre:</label>
             <input
               autoComplete="off"
@@ -274,11 +276,12 @@ const RestaurantForm = () => {
               className="w-[75%] rounded-md p-1  border border-primary"
               type="text"
               id="name"
-              placeholder="Ingresa el nombre del restaurant"
               required
             />
           </div>
-          <label>Escoje tu direccion en el mapa:</label>
+          <label className="text-xs md:text-lg">
+            Escoje tu direccion en el mapa:
+          </label>
           <div className="w-[100%] h-[200px] mt-[10px]">
             <div
               ref={mapRef}
@@ -286,7 +289,7 @@ const RestaurantForm = () => {
             ></div>
           </div>
           <div className="w-[100%] flex flex-col md:flex-row mb-3 mt-3">
-            <div className="w-[100%] md:w-[35%] flex mb-3 md:mb-0">
+            <div className="w-[100%] md:w-[35%] flex mb-3 md:mb-0 text-xs md:text-lg">
               <label className="w-[60%] p-1">Codigo:</label>
               <PhoneInput
                 country={"bo"}
@@ -296,13 +299,13 @@ const RestaurantForm = () => {
                 value={restaurant.codArea}
                 onChange={handleCodArea}
                 type="text"
-                className="w-[40%] rounded-md p-1 border border-black"
+                className="w-[40%] rounded-md border border-black"
                 inputStyle={{
                   width: "100%",
                   border: "none",
                   backgroundColor: "transparent",
                   fontFamily: "'WinterTrendy', sans-serif",
-                  fontSize: "18px",
+                  fontSize: "16px",
                 }}
                 buttonStyle={{
                   border: "none",
@@ -312,8 +315,8 @@ const RestaurantForm = () => {
                 required
               />
             </div>
-            <div className="w-[100%] md:w-[65%] flex">
-              <label className="w-[35%]  md:ml-5 p-1">Celular: </label>
+            <div className="w-[100%] md:w-[65%] flex text-xs md:text-lg">
+              <label className="w-[35%]  md:ml-5 p-1">Whatsapp: </label>
               <input
                 autoComplete="off"
                 id="phone"
@@ -321,14 +324,13 @@ const RestaurantForm = () => {
                 value={restaurant.phone}
                 onChange={handleChange}
                 className="w-[65%] rounded-md p-1  border border-black"
-                placeholder="whatsapp pedidos"
                 type="text"
                 required
               />
             </div>
           </div>
           <div className="w-[100%] flex flex-col md:flex-row mb-3">
-            <div className="w-[100%] flex">
+            <div className="w-[100%] flex text-xs md:text-lg">
               <label className="w-[30%] p-1">Ciudad: </label>
               <input
                 autoComplete="off"
@@ -338,11 +340,10 @@ const RestaurantForm = () => {
                 onChange={handleChange}
                 className="w-[70%] rounded-md p-1  border border-black"
                 type="text"
-                placeholder="Ingresa ciudad"
                 required
               />
             </div>
-            <div className="w-[100%] flex mt-3 md:mt-0">
+            <div className="w-[100%] flex mt-3 md:mt-0 text-xs md:text-lg">
               <label className="w-[21%] md:ml-5 p-1">Pais:</label>
               <input
                 autoComplete="off"
@@ -352,12 +353,11 @@ const RestaurantForm = () => {
                 onChange={handleChange}
                 className="w-[79%] rounded-md p-1  border border-black"
                 type="text"
-                placeholder="Ingresa tu pais"
                 required
               />
             </div>
           </div>
-          <div className="w-[100%] flex mb-3">
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[30%] p-1">Sitio Web:</label>
             <input
               autoComplete="off"
@@ -370,9 +370,9 @@ const RestaurantForm = () => {
               placeholder="https://example.com"
             />
           </div>
-          <div className="w-[100%] flex flex-col mb-3">
-            <div className="w-[100%] flex mb-3">
-              <label className="w-[35%] p-1">Lunes a Viernes:</label>
+          <div className="w-[100%] flex flex-col mb-3 text-xs md:text-lg">
+            <div className="w-[100%] flex mb-3 ">
+              <label className="w-[25%] p-1">Lun-Vie: </label>
               <input
                 autoComplete="off"
                 id="time-weekdays"
@@ -384,13 +384,13 @@ const RestaurantForm = () => {
                     time: { ...restaurant.time, weekdays: e.target.value },
                   })
                 }
-                className="w-[65%] rounded-md p-1  border border-black"
+                className="w-[75%] rounded-md p-1  border border-black"
                 type="text"
                 placeholder="9:00AM-2:00PM y 6:00PM-11:00PM"
               />
             </div>
             <div className="w-[100%] flex">
-              <label className="w-[35%] p-1">Fin de semana:</label>
+              <label className="w-[25%] p-1">Sab-Dom:</label>
               <input
                 autoComplete="off"
                 id="time-weekends"
@@ -402,13 +402,13 @@ const RestaurantForm = () => {
                     time: { ...restaurant.time, weekends: e.target.value },
                   })
                 }
-                className="w-[65%] rounded-md p-1  border border-black"
+                className="w-[75%] rounded-md p-1  border border-black"
                 type="text"
                 placeholder="9:00AM-2:00PM y 6:00PM-11:00PM"
               />
             </div>
           </div>
-          <div className="w-[100%] flex mb-3">
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[20%] p-1">Zona:</label>
             <select
               id="zone"
@@ -424,13 +424,13 @@ const RestaurantForm = () => {
               <option value="Oeste">Oeste</option>
             </select>
           </div>
-          <div className="w-[100%] flex justify-between mb-3 ">
-            <label className="w-[30%]">Categorías:</label>
+          <div className="w-[100%] flex justify-between mb-3 text-xs md:text-lg">
+            <label className="w-[30%] pt-2 md:pt-0">Categorías:</label>
             <div className="w-[70%]">
               <select
                 value={categoryInput}
                 onChange={(e) => setCategoryInput(e.target.value)}
-                className="w-[78%] md:w-[87.5%] lg:w-[90%] py-2 rounded border border-primary"
+                className="w-[74%] md:w-[87.5%] lg:w-[90%] py-2 rounded border border-primary"
               >
                 <option value="" selected disabled>
                   Elije una o varias
@@ -450,7 +450,7 @@ const RestaurantForm = () => {
               </button>
             </div>
           </div>
-          <div className="w-[100%] mb-3">
+          <div className="w-[100%] mb-3 text-xs md:text-lg">
             <ul className="bg-secondary">
               {restaurant.categories.map((category, index) => (
                 <li
@@ -469,8 +469,8 @@ const RestaurantForm = () => {
               ))}
             </ul>
           </div>
-          <div className="flex w-[100%] mb-3">
-            <label className="w-[22%] ">Ofertas:</label>
+          <div className="flex w-[100%] mb-3 text-xs md:text-lg">
+            <label className="w-[22%] pt-2 md:pt-0">Ofertas:</label>
             <div className="flex items-center w-[78%] ">
               <input
                 type="text"
@@ -488,7 +488,7 @@ const RestaurantForm = () => {
               </button>
             </div>
           </div>
-          <div className="w-[100%]">
+          <div className="w-[100%] text-xs md:text-lg">
             <ul className="bg-secondary">
               {restaurant.offers.map((offer, index) => (
                 <li key={index} className="flex justify-between w-[100%] mb-1">
@@ -505,9 +505,9 @@ const RestaurantForm = () => {
             </ul>
           </div>
           <div className="h-22 flex items-center ">
-            <div className="w-[40%] md:w-[20%] flex">
+            <div className="w-[40%] md:w-[20%] flex text-xs md:text-lg">
               <div className="file-input mt-3 ">
-                <label htmlFor="file-upload" className="custom-file-upload ">
+                <label htmlFor="file-upload" className="custom-file-upload">
                   Agregar Imagenes
                 </label>
                 <input
@@ -538,7 +538,7 @@ const RestaurantForm = () => {
             </div>
           </div>
 
-          <div className="text-center mt-8">
+          <div className="text-center mt-8 text-xs md:text-lg">
             <button
               className=" px-4 py-2 bg-primary rounded-md text-neutral border border-secondary hover:text-secondary"
               type="submit"

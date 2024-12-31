@@ -22,29 +22,29 @@ export const useLogin = () => {
     if (token) {
       Swal.fire({
         position: "top",
-        text: "¡Ingreso exitoso!",
-        background: "transparent",
+        title: "¡Ingreso exitoso!",
+        background: "black",
         color: "#eff6ff",
         width: "400px",
         showConfirmButton: false,
         timer: 1000,
-        // confirmButtonColor: "transparent",
-        // customClass: {
-        //   confirmButton: "custom-confirm-button",
-        // },
+        customClass: {
+          title: "text-xs md:text-sm",
+        },
       }).then(() => navigate("/"));
     }
 
     if (error) {
       Swal.fire({
         position: "top",
-        text: "Email o contraseña inválida. ¡Inténtelo de nuevo!",
-        background: "transparent",
+        title: "Email o contraseña invalida. ¡Intentelo de nuevo!",
+        background: "black",
         color: "#eff6ff",
         width: "400px",
         confirmButtonColor: "transparent",
         customClass: {
-          confirmButton: "custom-confirm-button",
+          title: "text-xs md:text-sm",
+          confirmButton: "custom-confirm-button text-xs md:text-sm",
         },
       });
     } else {

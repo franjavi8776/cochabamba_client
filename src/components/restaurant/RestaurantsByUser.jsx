@@ -36,8 +36,8 @@ const RestaurantsByUser = () => {
   return (
     <div className="w-full min-h-[100vh] bg-neutral dark:bg-primary text-primary ">
       <Navbar />
-      <div className="overflow-x-auto">
-        <table className="w-[1400px] min-h-[10vh] m-auto border-collapse text-center bg-neutral">
+      <div className="w-[95%] m-auto overflow-x-auto">
+        <table className="w-[900px] md:w-[1400px] min-h-[10vh] m-auto border-collapse text-center bg-neutral text-xs md:text-lg">
           <thead className="border border-secondary text-neutral ">
             <tr className="bg-primary">
               <th className="w-[280px] ">Nombre</th>

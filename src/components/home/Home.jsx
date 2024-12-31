@@ -50,7 +50,7 @@ const Home = () => {
 
   const categoryStyles = (offsetX, offsetY) => {
     const isMobile = window.innerWidth < 768;
-    const mobileOffsetMultiplier = 0.37;
+    const mobileOffsetMultiplier = 0.34;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
     const tabletOffsetMultiplier = 0.7;
     return {
@@ -84,18 +84,18 @@ const Home = () => {
   const handleLogout = () => {
     Swal.fire({
       position: "top",
-      title: "Estás seguro?",
-      text: "Deseas cerrar sesión?",
+      title: "Deseas cerrar sesion ?",
       color: "#eff6ff",
-      background: "transparent",
+      background: "black",
       showCancelButton: true,
       confirmButtonColor: "transparent",
       cancelButtonColor: "transparent",
-      confirmButtonText: "Sí, cerrar sesión",
+      confirmButtonText: "Sí, cerrar sesion",
       cancelButtonText: "Cancelar",
       customClass: {
-        confirmButton: "custom-confirm-button",
-        cancelButton: "custom-cancel-button",
+        title: "text-xs md:text-sm",
+        confirmButton: "custom-confirm-button text-xs md:text-sm",
+        cancelButton: "custom-cancel-button text-xs md:text-sm",
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -121,16 +121,21 @@ const Home = () => {
       <div className="flex-1">
         <button
           onClick={toggleTheme}
-          className="absolute bottom-10 left-5 p-2 rounded-full bg-primary dark:bg-neutral text-accent dark:text-secondary transition-colors duration-300 border border-secondary"
+          className="absolute bottom-10 left-5 p-1 md:p-2 rounded-full bg-primary dark:bg-neutral text-accent dark:text-secondary transition-colors duration-300 border border-secondary"
         >
           <i
-            className={`fa ${darkMode === true ? "fa-moon-o" : "fa-sun-o"}`}
+            className={`fa ${
+              darkMode === true ? "fa-moon-o" : "fa-sun-o"
+            } text-sm md:text-lg`}
           ></i>
         </button>
 
         {!token ? (
-          <Link to="/Login" className="absolute top-10 right-10">
-            <button className="text-lg  hover:text-secondary">
+          <Link
+            to="/Login"
+            className="absolute top-5 right-5 md:top-10 md:right-10"
+          >
+            <button className="text-sm md:text-lg  hover:text-secondary">
               Iniciar Sesion
               <i className="fa fa-sign-in ml-2 text-secondary"></i>
             </button>
@@ -139,28 +144,28 @@ const Home = () => {
           <>
             <div className="absolute top-5 right-5 ">
               <button onClick={handleClickUser}>
-                <span className="mr-2 text-lg hover:text-secondary">
+                <span className="mr-2 text-sm md:text-lg hover:text-secondary">
                   {firstName}
                 </span>
                 <i
-                  className="fa fa-user text-lg text-secondary"
+                  className="fa fa-user text-sm md:text-lg text-secondary"
                   aria-hidden="true"
                 ></i>
               </button>
             </div>
 
-            <div className="absolute top-16 right-5  text-lg hover:text-secondary z-10">
+            <div className="absolute top-16 right-5 text-sm  md:text-lg hover:text-secondary z-10">
               <button onClick={handleModalClick}>
                 <span>Publica tu negocio</span>
                 <i
-                  className="fa fa-plus ml-2 text-lg  text-secondary"
+                  className="fa fa-plus ml-2 text-sm md:text-lg  text-secondary"
                   aria-hidden="true"
                 ></i>
               </button>
             </div>
 
             {restaurantsByUser.length > 0 && (
-              <div className="absolute top-28 right-5 text-lg hover:text-secondary z-10">
+              <div className="absolute top-28 right-5 text-sm md:text-lg hover:text-secondary z-10">
                 <button onClick={handleClickRestaurants}>
                   <span>Revisa tus anuncios</span>
                   <i
@@ -174,7 +179,7 @@ const Home = () => {
             <div className="absolute bottom-10 right-5">
               <button
                 onClick={handleLogout}
-                className="  text-lg  hover:text-secondary"
+                className="text-sm md:text-lg  hover:text-secondary"
               >
                 Cerrar sesion
                 <i
@@ -187,7 +192,7 @@ const Home = () => {
         )}
         <h5
           style={categoryStyles(0, 0)}
-          className="w-[235px] md:w-[430px] lg:w-[600px]"
+          className="w-[215px] md:w-[430px] lg:w-[600px]"
         >
           <img src="logo.png" alt="logo" />
         </h5>
@@ -196,7 +201,7 @@ const Home = () => {
             category="restaurant"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -209,7 +214,7 @@ const Home = () => {
             category="hotel"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -222,7 +227,7 @@ const Home = () => {
             category="movie"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -235,7 +240,7 @@ const Home = () => {
             category="tourism"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -248,7 +253,7 @@ const Home = () => {
             category="hospital"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -261,7 +266,7 @@ const Home = () => {
             category="park"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -274,7 +279,7 @@ const Home = () => {
             category="disco"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -287,7 +292,7 @@ const Home = () => {
             category="supermarket"
             width={
               window.innerWidth < 768
-                ? "60px"
+                ? "50px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "110px"
                 : "130px"
@@ -300,7 +305,7 @@ const Home = () => {
             category="university"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -313,7 +318,7 @@ const Home = () => {
             category="store"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -326,7 +331,7 @@ const Home = () => {
             category="gym"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -339,7 +344,7 @@ const Home = () => {
             category="taxi"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -352,7 +357,7 @@ const Home = () => {
             category="emergency"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -365,7 +370,7 @@ const Home = () => {
             category="delivery"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -378,7 +383,7 @@ const Home = () => {
             category="university"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"
@@ -391,7 +396,7 @@ const Home = () => {
             category="rent"
             width={
               window.innerWidth < 768
-                ? "45px"
+                ? "40px"
                 : window.innerWidth >= 768 && window.innerWidth < 1024
                 ? "70px"
                 : "90px"

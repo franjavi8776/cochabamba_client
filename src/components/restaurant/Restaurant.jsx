@@ -56,10 +56,13 @@ const Restaurant = () => {
   const dispatch = useDispatch();
 
   const restaurants = useSelector((state) => state.restaurants);
+
   const totalResults = useSelector((state) => state.totalResults);
+
   const restaurantsByCategory = useSelector(
     (state) => state.restaurantsByCategory
   );
+
   const error = useSelector((state) => state.error);
 
   useEffect(() => {
@@ -80,13 +83,11 @@ const Restaurant = () => {
   };
 
   const handleClickCategory = (category) => {
-    dispatch({ type: "CLEAR_ERROR" });
-
+    setPage(1);
     if (category === "Todos") {
-      setPage(1);
       dispatch(getAllRestaurants(searchTerm, page, limit));
     } else {
-      dispatch(getRestaurantsByCategory([category], 1, limit));
+      dispatch(getRestaurantsByCategory([category], page, limit));
     }
   };
 
@@ -98,17 +99,17 @@ const Restaurant = () => {
   return (
     <div className="w-full min-h-[100vh] text-primary bg-neutral dark:bg-primary dark:text-neutral">
       <Navbar nameCategory="Restaurantes" />
-      <div className="w-[70vw] m-auto mt-10 flex  flex-wrap justify-center gap-5 pb-10 ">
-        <div className="w-[50%]">
+      <div className="w-[85vw] md:w-[70vw] m-auto mt-10 flex  flex-wrap justify-center gap-5 pb-10 ">
+        <div className="w-full md:w-[50%] text-xs md:text-lg">
           <input
             type="search"
-            placeholder="buscar por nombre de restaurant"
+            placeholder="buscar por restaurant..."
             className="w-full px-4 py-2 rounded-md text-primary border border-black dark:border-secondary"
             value={searchTerm}
             onChange={handleSearchChange}
           />
         </div>
-        <div className="w-[80%] lg:w-full lg:h-20  flex flex-wrap gap-5 justify-center lg:justify-between text-md lg:text-xl ">
+        <div className="w-full md:w-[80%] lg:w-full lg:h-20  flex flex-wrap gap-5 justify-center lg:justify-between text-xs lg:text-xl ">
           {[
             "Todos",
             "Churrasqueria",
@@ -155,19 +156,21 @@ const Restaurant = () => {
                     className="w-full h-[150px] object-cover object-center"
                   />
                   <div className="flex justify-between items-center">
-                    <h1 className="font-bold text-xl m-3">{restaurant.name}</h1>
-                    <p className="m-3 ">
+                    <h1 className="text-sm md:text-xl m-3">
+                      {restaurant.name}
+                    </h1>
+                    <p className="m-3">
                       {restaurant.averageStars ? (
                         renderStars(restaurant.averageStars)
                       ) : (
-                        <small>Sin Puntación</small>
+                        <small className="text-accent">Sin Puntacion</small>
                       )}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="text-center text-3xl mt-20">
+              <div className="text-center text-lg md:text-3xl mt-20">
                 Restaurantes no encontrados
               </div>
             )}

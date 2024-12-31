@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 
 const CarouselImages = ({ images }) => {
   return (
-    <div className="custom-swiper w-[300px] h-[200px] md:w-[400px] md:h-[270px] mb-7 border border-primary shadow-primary shadow-md rounded-md overflow-hidden">
+    <div className="custom-swiper w-[270px] h-[200px] md:w-[400px] md:h-[270px] mb-7 border border-primary shadow-primary shadow-md rounded-md overflow-hidden">
       {images.length === 1 ? (
         <img
           src={images[0]}
           alt="Single Image"
-          className="w-[300px] h-[200px] md:w-[400px] md:h-[270px] object-cover"
+          className="w-[270px] h-[200px] md:w-[400px] md:h-[270px] object-cover"
         />
       ) : (
         <Swiper
@@ -26,7 +26,7 @@ const CarouselImages = ({ images }) => {
               <img
                 src={image}
                 alt={`Image${index}`}
-                className="w-[300px] h-[200px] md:w-[400px] md:h-[270px] object-cover"
+                className="w-[270px] h-[200px] md:w-[400px] md:h-[270px] object-cover"
               />
             </SwiperSlide>
           ))}

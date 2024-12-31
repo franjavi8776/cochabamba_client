@@ -74,13 +74,14 @@ const UserRegister = () => {
         .then(() => {
           Swal.fire({
             position: "top",
-            text: "¡Actualización exitosa!",
+            title: "¡Actualización exitosa!",
             background: "transparent",
             color: "#eff6ff",
             width: "400px",
             confirmButtonColor: "transparent",
             customClass: {
-              confirmButton: "custom-confirm-button",
+              title: "text-xs md:text-sm",
+              confirmButton: "custom-confirm-button text-xs md:text-sm",
             },
           }).then(() => {
             cleanForm();
@@ -90,13 +91,14 @@ const UserRegister = () => {
         .catch(() => {
           Swal.fire({
             position: "top",
-            text: "Error al actualizar. Por favor, inténtalo de nuevo.",
+            title: "Error al actualizar. Por favor, inténtalo de nuevo.",
             background: "transparent",
             color: "#eff6ff",
             width: "400px",
             confirmButtonColor: "transparent",
             customClass: {
-              confirmButton: "custom-confirm-button",
+              text: "text-xs md:text-sm",
+              confirmButton: "custom-confirm-button text-xs md:text-sm",
             },
           });
         });
@@ -106,13 +108,14 @@ const UserRegister = () => {
         .then(() => {
           Swal.fire({
             position: "top",
-            text: "¡Registro exitoso!",
+            title: "¡Registro exitoso!",
             background: "transparent",
             color: "#eff6ff",
             width: "400px",
             confirmButtonColor: "transparent",
             customClass: {
-              confirmButton: "custom-confirm-button",
+              title: "text-xs md:text-sm",
+              confirmButton: "custom-confirm-button text-xs md:text-sm",
             },
           }).then(() => {
             cleanForm();
@@ -122,13 +125,14 @@ const UserRegister = () => {
         .catch(() => {
           Swal.fire({
             position: "top",
-            text: "El email ya existe. ¡Inténtelo de nuevo con otro email!",
+            title: "El email ya existe. ¡Inténtelo de nuevo con otro email!",
             background: "transparent",
             color: "#eff6ff",
             width: "400px",
             confirmButtonColor: "transparent",
             customClass: {
-              confirmButton: "custom-confirm-button",
+              title: "text-xs md:text-sm",
+              confirmButton: "custom-confirm-button text-xs md:text-sm",
             },
           });
         });
@@ -140,12 +144,12 @@ const UserRegister = () => {
       <div className="w-[100vw] h-[100vh] bg-neutral dark:bg-primary text-primary flex items-center justify-center text-sm md:text-xl">
         <form
           onSubmit={handleSubmit}
-          className="w-[350px] md:w-[650px] m-h-[500px] p-5 bg-secondary dark:bg-neutral rounded-xl border border-primary dark:border-secondary"
+          className="w-[320px] md:w-[650px] m-h-[500px] p-5 bg-secondary dark:bg-neutral rounded-xl border border-primary dark:border-secondary"
         >
-          <h1 className="m-8 text-xl md:text-3xl text-center">
+          <h1 className="m-8 text-sm md:text-3xl text-center">
             {id ? "Actualizar  de Usuario" : "Registrar de Usuario"}
           </h1>
-          <div className="w-[100%] flex mb-3">
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[35%] p-1">Nombre: </label>
             <input
               autoComplete="off"
@@ -155,12 +159,11 @@ const UserRegister = () => {
               className="w-[65%] rounded-md p-1  text-primary border border-primary"
               type="text"
               id="name"
-              placeholder="Ingrese su nombre completo"
               required
             />
           </div>
 
-          <div className="w-[100%] flex mb-3">
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[35%] p-1">Email:</label>
             <input
               autoComplete="off"
@@ -170,11 +173,10 @@ const UserRegister = () => {
               onChange={handleChange}
               className="w-[65%] rounded-md p-1  text-primary border border-primary"
               type="text"
-              placeholder="Ingrese su correo electronico"
               required
             />
           </div>
-          <div className="w-[100%] flex mb-3">
+          <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[35%] p-1">Contraseña:</label>
             <input
               autoComplete="off"
@@ -184,13 +186,12 @@ const UserRegister = () => {
               onChange={handleChange}
               className="w-[70%] rounded-md p-1  text-primary border border-primary"
               type="password"
-              placeholder="Ingrese su contraseña"
               required
             />
           </div>
 
           <div className="w-[100%] flex flex-col md:flex-row mb-3">
-            <div className="w-[100%] md:w-[35%] flex ">
+            <div className="w-[100%] md:w-[35%] flex text-xs md:text-lg">
               <label className="w-[60%] p-1">Codigo:</label>
               <PhoneInput
                 country={"bo"}
@@ -200,13 +201,13 @@ const UserRegister = () => {
                 value={user.codArea}
                 onChange={handleCodArea}
                 type="text"
-                className="w-[40%] rounded-md p-1  bg-white text-primary border border-primary "
+                className="w-[40%] rounded-md  bg-white text-primary border border-primary "
                 inputStyle={{
                   width: "100%",
                   border: "none",
                   backgroundColor: "transparent",
                   fontFamily: "'WinterTrendy', sans-serif",
-                  fontSize: "18px",
+                  fontSize: "16px",
                 }}
                 buttonStyle={{
                   border: "none",
@@ -215,7 +216,7 @@ const UserRegister = () => {
                 required
               />
             </div>
-            <div className="w-[100%] md:w-[65%] flex mt-3 md:mt-0">
+            <div className="w-[100%] md:w-[65%] flex mt-3 md:mt-0 text-xs md:text-lg">
               <label className="w-[40%] md:ml-5 p-1">Celular: </label>
               <input
                 autoComplete="off"
@@ -225,13 +226,12 @@ const UserRegister = () => {
                 onChange={handleChange}
                 className="w-[60%] rounded-md p-1  text-primary border border-primary"
                 type="text"
-                placeholder="# telefono"
                 required
               />
             </div>
           </div>
           <div className="w-[100%] flex flex-col md:flex-row mb-3">
-            <div className="w-[100%] md:w-[50%] flex mb-3 md:mb-0">
+            <div className="w-[100%] md:w-[50%] flex mb-3 md:mb-0 text-xs md:text-lg">
               <label className="w-[42%] p-1">Ciudad: </label>
               <input
                 autoComplete="off"
@@ -241,11 +241,10 @@ const UserRegister = () => {
                 onChange={handleChange}
                 className="w-[58%] rounded-md p-1  text-primary border border-primary"
                 type="text"
-                placeholder="Ciudad"
                 required
               />
             </div>
-            <div className="w-[100%] md:w-[50%] flex">
+            <div className="w-[100%] md:w-[50%] flex text-xs md:text-lg">
               <label className="w-[21%] md:ml-5 p-1">Pais:</label>
               <input
                 autoComplete="off"
@@ -255,12 +254,11 @@ const UserRegister = () => {
                 onChange={handleChange}
                 className="w-[79%] rounded-md p-1  text-primary border border-primary"
                 type="text"
-                placeholder="Pais"
                 required
               />
             </div>
           </div>
-          <div className="text-center mt-8">
+          <div className="text-center mt-8 text-xs md:text-lg">
             <button
               className=" px-4 py-2 bg-primary rounded-md text-neutral border border-secondary hover:text-secondary"
               type="submit"
@@ -269,10 +267,14 @@ const UserRegister = () => {
             </button>
           </div>
         </form>
-        <Link to="/" className="absolute top-5 left-5">
-          <button className="  text-primary dark:text-neutral text-lg hover:text-secondary dark:hover:text-secondary">
+        <Link to="/" className="absolute top-5 left-5 ">
+          <button className="  text-primary dark:text-neutral text-xs md:text-lg hover:text-secondary dark:hover:text-secondary">
             {" "}
-            <i className="fa fa-arrow-left " aria-hidden="true"></i> Volver
+            <i
+              className="fa fa-arrow-left text-secondary"
+              aria-hidden="true"
+            ></i>{" "}
+            Volver
           </button>
         </Link>
       </div>

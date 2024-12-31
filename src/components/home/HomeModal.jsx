@@ -12,18 +12,18 @@ const HomeModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0  flex justify-center z-50 pt-5 bg-primary text-neutral dark:text-primary bg-opacity-50">
-      <div className="bg-primary dark:bg-neutral w-[380px]  h-[650px]  p-6 rounded-lg shadow-sm shadow-neutral text-lg relative border border-secondary">
+      <div className="bg-primary dark:bg-neutral w-[320px] md:w-[380px] h-[500px] md:h-[650px]  p-6 rounded-lg shadow-sm shadow-neutral text-lg relative border border-secondary">
         <button
           onClick={onClose}
           className="absolute top-0 right-1 text-2xl  hover:text-secondary"
         >
           ✖
         </button>
-        <h1 className="text-center text-secondary text-2xl">
+        <h1 className="text-center text-secondary text-lg md:text-2xl">
           Escoge la categoria de tu negocio
         </h1>
 
-        <div className="flex flex-wrap justify-center items-center mt-5 text-lg gap-5 ">
+        <div className="flex flex-wrap justify-center items-center mt-5 text-sm md:text-lg gap-5 ">
           <button onClick={handleRestaurant}>
             <p className="py-2 px-4 hover:text-secondary">Restaurant</p>
           </button>
