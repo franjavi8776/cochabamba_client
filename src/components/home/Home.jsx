@@ -122,7 +122,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-[100vh] text-primary bg-neutral dark:bg-primary dark:text-neutral">
+    <div className="flex flex-col min-h-[100vh] text-primary bg-neutral_opacity dark:bg-primary_opacity dark:text-neutral">
       <div className="flex-1">
         <button
           onClick={toggleTheme}
