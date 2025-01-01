@@ -14,6 +14,7 @@ import CochabambaModal from "./CochabambaModal";
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalCochabamba, setIsModalCochabamba] = useState(false);
   const [center, setCenter] = useState({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
@@ -84,6 +85,7 @@ const Home = () => {
 
   const handleLogout = () => {
     Swal.fire({
+      width: "230px",
       position: "top",
       title: "Deseas cerrar sesion ?",
       color: "#eff6ff",
@@ -91,8 +93,8 @@ const Home = () => {
       showCancelButton: true,
       confirmButtonColor: "transparent",
       cancelButtonColor: "transparent",
-      confirmButtonText: "Sí, cerrar sesion",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
       customClass: {
         title: "text-xs md:text-sm",
         confirmButton: "custom-confirm-button text-xs md:text-sm",
@@ -110,7 +112,7 @@ const Home = () => {
   };
 
   const handleModalCochabamba = () => {
-    setIsModalOpen(true);
+    setIsModalCochabamba(true);
   };
 
   const handleClickRestaurants = () => {
@@ -414,8 +416,8 @@ const Home = () => {
       </div>
       <HomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <CochabambaModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalCochabamba}
+        onClose={() => setIsModalCochabamba(false)}
       />
 
       <Footer />

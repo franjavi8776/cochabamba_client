@@ -1,6 +1,7 @@
 import "./styles.css";
+import GoogleMap from "../googleMap/GoogleMap";
 import { useLoadScript } from "@react-google-maps/api";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { createRestaurant, updateRestaurant } from "../../redux/actions";
@@ -8,6 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import Swal from "sweetalert2";
+
 const RestaurantForm = () => {
   const location = useLocation();
   const { restaurantState } = location.state || {};
@@ -51,41 +53,6 @@ const RestaurantForm = () => {
     googleMapsApiKey: "AIzaSyCPXN8HnP527MrOKcu-3QYvHypzzG-mh2I",
     id: "google-maps-script",
   });
-  const mapRef = useRef(null);
-  const markerRef = useRef(null);
-
-  useEffect(() => {
-    //console.log(window.google);
-    if (isLoaded && window.google) {
-      const initialPosition = restaurant.location.latitude
-        ? {
-            lat: parseFloat(restaurant.location.latitude),
-            lng: parseFloat(restaurant.location.longitude),
-          }
-        : { lat: -17.3826, lng: -66.15562 };
-
-      const mapInstance = new window.google.maps.Map(mapRef.current, {
-        center: initialPosition,
-        zoom: 14,
-      });
-
-      const markerInstance = new window.google.maps.Marker({
-        position: initialPosition,
-        map: mapInstance,
-        draggable: true,
-      });
-
-      markerInstance.addListener("dragend", (event) => {
-        const { lat, lng } = event.latLng.toJSON();
-        setRestaurant((prevState) => ({
-          ...prevState,
-          location: { latitude: lat, longitude: lng },
-        }));
-      });
-
-      markerRef.current = markerInstance;
-    }
-  }, [isLoaded, restaurant.location.latitude, restaurant.location.longitude]);
 
   useEffect(() => {
     return () => {
@@ -255,9 +222,16 @@ const RestaurantForm = () => {
     });
   };
 
+  const handleLocationChange = (newlocation) => {
+    setRestaurant((prevState) => ({
+      ...prevState,
+      location: newlocation,
+    }));
+  };
+
   return (
     <div className="min-h-[100vh] bg-neutral dark:bg-primary text-primary text-sm  md:text-xl flex flex-col">
-      <Navbar />
+      <Navbar nameCategory="" />
       <div className="m-auto mb-20">
         <form
           onSubmit={handleSubmit}
@@ -283,10 +257,17 @@ const RestaurantForm = () => {
             Escoje tu direccion en el mapa:
           </label>
           <div className="w-[100%] h-[200px] mt-[10px]">
-            <div
-              ref={mapRef}
-              className="w-[100%] h-[200px] border border-primary rounded-md"
-            ></div>
+            {isLoaded ? (
+              <GoogleMap
+                location={{
+                  latitude: String(restaurant.location.latitude),
+                  longitude: String(restaurant.location.longitude),
+                }}
+                onLocationChange={handleLocationChange}
+              />
+            ) : (
+              <div>Cargando mapa...</div>
+            )}
           </div>
           <div className="w-[100%] flex flex-col md:flex-row mb-3 mt-3">
             <div className="w-[100%] md:w-[35%] flex mb-3 md:mb-0 text-xs md:text-lg">
@@ -428,6 +409,8 @@ const RestaurantForm = () => {
             <label className="w-[30%] pt-2 md:pt-0">Categorías:</label>
             <div className="w-[70%]">
               <select
+                id="category"
+                name="category"
                 value={categoryInput}
                 onChange={(e) => setCategoryInput(e.target.value)}
                 className="w-[74%] md:w-[87.5%] lg:w-[90%] py-2 rounded border border-primary"

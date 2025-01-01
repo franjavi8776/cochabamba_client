@@ -109,9 +109,9 @@ const UserRegister = () => {
           Swal.fire({
             position: "top",
             title: "¡Registro exitoso!",
-            background: "transparent",
+            background: "black",
             color: "#eff6ff",
-            width: "400px",
+            width: "230px",
             confirmButtonColor: "transparent",
             customClass: {
               title: "text-xs md:text-sm",
@@ -126,9 +126,9 @@ const UserRegister = () => {
           Swal.fire({
             position: "top",
             title: "El email ya existe. ¡Inténtelo de nuevo con otro email!",
-            background: "transparent",
+            background: "black",
             color: "#eff6ff",
-            width: "400px",
+            width: "250px",
             confirmButtonColor: "transparent",
             customClass: {
               title: "text-xs md:text-sm",
@@ -268,7 +268,7 @@ const UserRegister = () => {
           </div>
         </form>
         <Link to="/" className="absolute top-5 left-5 ">
-          <button className="  text-primary dark:text-neutral text-xs md:text-lg hover:text-secondary dark:hover:text-secondary">
+          <button className="  text-primary dark:text-neutral text-sm md:text-lg hover:text-secondary dark:hover:text-secondary">
             {" "}
             <i
               className="fa fa-arrow-left text-secondary"

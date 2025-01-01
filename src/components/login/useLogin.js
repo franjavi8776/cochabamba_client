@@ -21,11 +21,11 @@ export const useLogin = () => {
   useEffect(() => {
     if (token) {
       Swal.fire({
+        width: "230px",
         position: "top",
         title: "¡Ingreso exitoso!",
         background: "black",
         color: "#eff6ff",
-        width: "400px",
         showConfirmButton: false,
         timer: 1000,
         customClass: {
@@ -40,7 +40,7 @@ export const useLogin = () => {
         title: "Email o contraseña invalida. ¡Intentelo de nuevo!",
         background: "black",
         color: "#eff6ff",
-        width: "400px",
+        width: "230px",
         confirmButtonColor: "transparent",
         customClass: {
           title: "text-xs md:text-sm",

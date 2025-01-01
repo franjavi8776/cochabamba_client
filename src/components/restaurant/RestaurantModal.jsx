@@ -213,7 +213,7 @@ RestaurantModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   restaurant: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,

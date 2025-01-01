@@ -25,7 +25,9 @@ import Delivery from "./components/delivery/Delivery";
 import { useSelector } from "react-redux";
 
 function App() {
-  const isAuthenticated = useSelector((state) => state.token);
+  const token = useSelector((state) => state.token);
+  const isAuthenticated = token ? true : false;
+
   return (
     <>
       <ThemeProvider>

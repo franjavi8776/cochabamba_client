@@ -22,7 +22,7 @@ const CochabambaModal = ({ isOpen, onClose }) => {
           </span>
           <div className="mt-10 ">
             <iframe
-              className="w-full min-h-[80vh]"
+              className="w-full min-h-[60vh] md:min-h-[80vh]"
               src="https://www.youtube.com/embed/LcmMSzFZqVM?si=-I6AxaqNEt45lVt0&autoplay=1"
               title="YouTube video player"
               frameBorder="0"
