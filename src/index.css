@@ -16,10 +16,10 @@
 
 body {
   font-family: "WinterTrendy", sans-serif;
-  background-image: url("/cristo.png");
+  /* background-image: url("/cristo.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
 }
 
 .custom-swiper .swiper-button-next,
