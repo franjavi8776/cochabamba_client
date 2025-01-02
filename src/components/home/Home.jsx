@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
 import Swal from "sweetalert2";
 
@@ -19,6 +20,7 @@ const Home = () => {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
   });
+  const [loading, setLoading] = useState(true);
 
   const { darkMode, toggleTheme } = useContext(ThemeContext);
 
@@ -46,7 +48,9 @@ const Home = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(getRestaurantsByUser(id));
+      dispatch(getRestaurantsByUser(id)).then(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
   }, [dispatch, token, id]);
 
@@ -122,6 +126,24 @@ const Home = () => {
   const handleClickUser = () => {
     navigate("/register");
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-neutral dark:bg-primary">
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          strokeColor={darkMode ? "#72c0d1" : "#000000"}
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-[100vh] text-primary bg-neutral dark:bg-primary dark:text-neutral">

@@ -13,6 +13,7 @@ const Category = ({ category, width, icon }) => {
       navigate(`/${category}`);
     }, 400);
   };
+
   return (
     <div>
       <motion.button
