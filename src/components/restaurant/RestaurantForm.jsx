@@ -50,7 +50,7 @@ const RestaurantForm = () => {
 
   const id = useSelector((state) => state.id);
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCPXN8HnP527MrOKcu-3QYvHypzzG-mh2I",
+    googleMapsApiKey: "AIzaSyAOEub8cQoAa31ABK3s_j0GAni8TWrZGAA",
     id: "google-maps-script",
   });
 

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
@@ -48,11 +48,52 @@ const Home = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(getRestaurantsByUser(id)).then(() => setLoading(false));
-    } else {
-      setLoading(false);
+      dispatch(getRestaurantsByUser(id));
     }
   }, [dispatch, token, id]);
+
+  const categories = useMemo(
+    () => [
+      {
+        name: "restaurant",
+        image: "/restaurant.png",
+        offsetX: -280,
+        offsetY: -210,
+      },
+      { name: "hotel", image: "/hotel.png", offsetX: 280, offsetY: -210 },
+      { name: "movie", image: "/cinema.png", offsetX: -280, offsetY: 210 },
+      { name: "tourism", image: "/tourism.png", offsetX: 280, offsetY: 210 },
+      { name: "hospital", image: "/hospital.png", offsetX: 0, offsetY: -210 },
+      { name: "park", image: "/park.png", offsetX: 425, offsetY: 0 },
+      { name: "disco", image: "/clubs.png", offsetX: -425, offsetY: 0 },
+      {
+        name: "supermarket",
+        image: "/supermarket.png",
+        offsetX: 0,
+        offsetY: 210,
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    // Función para esperar que todas las imágenes carguen
+    const loadImages = async () => {
+      const imagePromises = categories.map(
+        (category) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.src = category.image;
+            img.onload = resolve;
+            img.onerror = resolve; // Manejo de errores
+          })
+      );
+      await Promise.all(imagePromises);
+      setLoading(false);
+    };
+
+    loadImages();
+  }, [categories]);
 
   const categoryStyles = (offsetX, offsetY) => {
     const isMobile = window.innerWidth < 768;
@@ -227,214 +268,24 @@ const Home = () => {
             <img src="logo.png" alt="logo" />
           </button>
         </h5>
-        <div style={categoryStyles(-280, -210)}>
-          <Category
-            category="restaurant"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="restaurant.png" alt="restaurant" />}
-          />
-        </div>
-        <div style={categoryStyles(280, -210)}>
-          <Category
-            category="hotel"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="hotel.png" alt="hotel" />}
-          />
-        </div>
-        <div style={categoryStyles(-280, 210)}>
-          <Category
-            category="movie"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="cinema.png" alt="cinema" />}
-          />
-        </div>
-        <div style={categoryStyles(280, 210)}>
-          <Category
-            category="tourism"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="tourism.png" alt="tourism" />}
-          />
-        </div>
-        <div style={categoryStyles(0, -210)}>
-          <Category
-            category="hospital"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="hospital.png" alt="hospital" />}
-          />
-        </div>
-        <div style={categoryStyles(425, 0)}>
-          <Category
-            category="park"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="park.png" alt="park" />}
-          />
-        </div>
-        <div style={categoryStyles(-425, 0)}>
-          <Category
-            category="disco"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="clubs.png" alt="clubs" />}
-          />
-        </div>
-        <div style={categoryStyles(0, 210)}>
-          <Category
-            category="supermarket"
-            width={
-              window.innerWidth < 768
-                ? "50px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "110px"
-                : "130px"
-            }
-            icon={<img src="supermarket.png" alt="supermarket" />}
-          />
-        </div>
-        <div style={categoryStyles(-140, -165)}>
-          <Category
-            category="university"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="university.png" alt="university" />}
-          />
-        </div>
-        <div style={categoryStyles(140, -165)}>
-          <Category
-            category="store"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="shopping.png" alt="shopping" />}
-          />
-        </div>
-        <div style={categoryStyles(-140, 165)}>
-          <Category
-            category="gym"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="gym.png" alt="gym" />}
-          />
-        </div>
-        <div style={categoryStyles(140, 165)}>
-          <Category
-            category="taxi"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="taxi.png" alt="taxi" />}
-          />
-        </div>
-        <div style={categoryStyles(-420, -165)}>
-          <Category
-            category="emergency"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="emergency.png" alt="emergencias" />}
-          />
-        </div>
-        <div style={categoryStyles(420, -165)}>
-          <Category
-            category="delivery"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="calendary.png" alt="calendario" />}
-          />
-        </div>
-        <div style={categoryStyles(-420, 165)}>
-          <Category
-            category="university"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="university.png" alt="universidades" />}
-          />
-        </div>
-        <div style={categoryStyles(420, 165)}>
-          <Category
-            category="rent"
-            width={
-              window.innerWidth < 768
-                ? "40px"
-                : window.innerWidth >= 768 && window.innerWidth < 1024
-                ? "70px"
-                : "90px"
-            }
-            icon={<img src="rent.png" alt="alquileres" />}
-          />
-        </div>
+        {categories.map((category, index) => (
+          <div
+            key={index}
+            style={categoryStyles(category.offsetX, category.offsetY)}
+          >
+            <Category
+              category={category.name}
+              width={
+                window.innerWidth < 768
+                  ? "50px"
+                  : window.innerWidth >= 768 && window.innerWidth < 1024
+                  ? "110px"
+                  : "130px"
+              }
+              icon={<img src={category.image} alt={category.name} />}
+            />
+          </div>
+        ))}
       </div>
       <HomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <CochabambaModal
