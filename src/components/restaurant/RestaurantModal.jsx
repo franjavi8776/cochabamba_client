@@ -70,11 +70,11 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-primary text-primary bg-opacity-50 flex items-center justify-center z-50 ">
-      <div className="bg-neutral w-[320px] md:w-[800px] lg:w-[1000px] max-h-[90vh] p-6 rounded-lg shadow-lg relative overflow-y-auto">
+    <div className="fixed inset-0 bg-primary dark:bg-neutral text-primary dark:text-neutral bg-opacity-50 dark:bg-opacity-50 flex items-center justify-center z-50 ">
+      <div className="bg-neutral dark:bg-primary w-[320px] md:w-[800px] lg:w-[1000px] max-h-[90vh] p-6 rounded-lg shadow-lg relative overflow-y-auto border border-primary dark:border-secondary">
         <button
           onClick={onClose}
-          className="absolute  top-4 right-5 text-3xl text-primary hover:text-secondary"
+          className="absolute  top-4 right-5 text-3xl  hover:text-secondary"
         >
           ✖
         </button>
@@ -83,7 +83,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
             <CarouselImages images={restaurant.images} />
 
             {isLoaded ? (
-              <div className="border border-primary shadow-black shadow-md ">
+              <div className="border border-primary dark:border-secondary">
                 <GoogleMap
                   mapContainerStyle={
                     window.innerWidth <= 768 ? mobileMapStyle : desktopMapStyle
@@ -99,7 +99,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
             )}
           </div>
           <div>
-            <div className="text-primary text-sm md:text-lg space-y-1 md:space-y-1.5">
+            <div className="text-sm md:text-lg space-y-1 md:space-y-1.5">
               <h1>
                 <small className="text-accent">Restaurant:</small>{" "}
                 <span>{restaurant.name}</span>
@@ -159,7 +159,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Escribe tu comentario"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full border border-primary p-2 rounded-md text-xs md:text-lg"
+                  className="w-full border border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
                   required
                 />
                 <input
@@ -167,14 +167,14 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Calificación (1-5)"
                   value={stars}
                   onChange={(e) => setStars(e.target.value)}
-                  className="w-full mt-2 border border-primary p-2 rounded-md text-xs md:text-lg"
+                  className="w-full mt-2 border border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
                   required
                   min="1"
                   max="5"
                 />
                 <button
                   type="submit"
-                  className="mt-4 bg-primary text-neutral px-4 py-2 rounded-md text-xs md:text-lg hover:text-secondary "
+                  className="mt-4 bg-primary dark:bg-neutral text-neutral dark:text-primary px-4 py-2 rounded-md text-xs md:text-lg hover:text-secondary dark:hover:text-secondary border border-primary dark:border-secondary"
                 >
                   Enviar comentario
                 </button>
@@ -185,7 +185,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
 
         <div className="w-full mt-5">
           <h2 className="text-lg md:text-2xl font-bold mb-4">Comentarios</h2>
-          <div className="max-h-[150px] overflow-y-auto border border-gray-950 p-4 rounded-md text-[12px]">
+          <div className="max-h-[150px] overflow-y-auto border border-primary dark:border-secondary p-4 rounded-md text-[12px]">
             {comments.length > 0 &&
               comments.map((c) => (
                 <div key={c.id}>

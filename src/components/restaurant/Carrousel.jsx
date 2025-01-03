@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const CarouselImages = ({ images }) => {
   return (
-    <div className="custom-swiper w-[270px] h-[200px] md:w-[400px] md:h-[270px] mb-7 border border-primary shadow-primary shadow-md rounded-md overflow-hidden">
+    <div className="custom-swiper w-[270px] h-[200px] md:w-[400px] md:h-[270px] mb-7 border border-primary dark:border-secondary rounded-md overflow-hidden">
       {images.length === 1 ? (
         <img
           src={images[0]}
