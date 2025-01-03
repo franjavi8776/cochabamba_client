@@ -191,23 +191,31 @@ const RestaurantForm = () => {
       );
       Swal.fire({
         position: "top",
-        text: "Restaurant actualizado correctamente",
+        title: "Actualizado correctamente",
         icon: "success",
         color: "#f0f8ff",
-        background: "transparent",
-        confirmButtonColor: "green",
-        width: "300px",
+        background: "black",
+        showConfirmButton: false,
+        width: "230px",
+        timer: 1000,
+        customClass: {
+          title: "text-xs md:text-sm",
+        },
       });
     } else {
       dispatch(createRestaurant(restaurant, newImages, id));
       Swal.fire({
         position: "top",
-        text: "Restaurant registrado correctamente",
+        title: "Registro Exitoso",
         icon: "success",
         color: "#f0f8ff",
-        background: "transparent",
-        confirmButtonColor: "green",
-        width: "300px",
+        background: "black",
+        showConfirmButton: false,
+        width: "230px",
+        timer: 1000,
+        customClass: {
+          title: "text-xs md:text-sm",
+        },
       });
     }
 

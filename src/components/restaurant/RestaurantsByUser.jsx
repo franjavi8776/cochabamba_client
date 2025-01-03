@@ -7,6 +7,8 @@ import {
 } from "../../redux/actions";
 import Navbar from "../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const RestaurantsByUser = () => {
   const id = useSelector((state) => state.id);
   const restaurantsByUser = useSelector((state) => state.restaurantsByUser);
@@ -21,8 +23,27 @@ const RestaurantsByUser = () => {
   }, [dispatch, id]);
 
   const handleDeleteRestaurant = (id) => {
-    dispatch(deleteRestaurant(id));
-    alert("Restaurant eleminado correctamente");
+    Swal.fire({
+      width: "230px",
+      position: "top",
+      title: "Deseas eliminar?",
+      color: "#eff6ff",
+      background: "black",
+      showCancelButton: true,
+      confirmButtonColor: "transparent",
+      cancelButtonColor: "transparent",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      customClass: {
+        title: "text-xs md:text-sm",
+        confirmButton: "custom-confirm-button text-xs md:text-sm",
+        cancelButton: "custom-cancel-button text-xs md:text-sm",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteRestaurant(id));
+      }
+    });
   };
 
   const handleUpdateRestaurant = (restaurantState) => {

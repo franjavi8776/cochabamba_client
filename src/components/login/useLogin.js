@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { loginByEmail, loginByGoogle } from "../../redux/actions";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase-config";
@@ -9,6 +10,7 @@ import Swal from "sweetalert2";
 export const useLogin = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [tokenGoogle, setTokenGoogle] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ export const useLogin = () => {
 
   useEffect(() => {
     if (token) {
+      setLoading(false);
+      navigate("/");
       Swal.fire({
         width: "230px",
         position: "top",
@@ -31,10 +35,11 @@ export const useLogin = () => {
         customClass: {
           title: "text-xs md:text-sm",
         },
-      }).then(() => navigate("/"));
+      });
     }
 
     if (error) {
+      setLoading(false);
       Swal.fire({
         position: "top",
         title: "Email o contraseña invalida. ¡Intentelo de nuevo!",
@@ -50,13 +55,7 @@ export const useLogin = () => {
     } else {
       cleanForm();
     }
-  }, [navigate, token, error]);
-
-  useEffect(() => {
-    if (tokenGoogle) {
-      dispatch(loginByGoogle(tokenGoogle));
-    }
-  }, [tokenGoogle, dispatch]);
+  }, [navigate, error, token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,20 +66,55 @@ export const useLogin = () => {
   };
 
   const handleGoogleLogin = async () => {
+    setLoading(true);
     const provider = new GoogleAuthProvider();
-    const { user } = await signInWithPopup(auth, provider);
-    if (user) {
-      setTokenGoogle(user.accessToken);
-      dispatch(loginByGoogle(user.accessToken));
+    try {
+      const { user } = await signInWithPopup(auth, provider);
+      if (user) {
+        setTokenGoogle(user.accessToken);
+        await dispatch(loginByGoogle(user.accessToken));
+        navigate("/");
+        Swal.fire({
+          width: "230px",
+          position: "top",
+          title: "¡Ingreso exitoso!",
+          background: "black",
+          color: "#eff6ff",
+          showConfirmButton: false,
+          timer: 1000,
+          customClass: {
+            title: "text-xs md:text-sm",
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error en el inicio de sesión con Google:", error);
+      Swal.fire({
+        position: "top",
+        title: "Error en el inicio de sesión con Google.",
+        background: "black",
+        color: "#eff6ff",
+        width: "230px",
+        confirmButtonColor: "transparent",
+        customClass: {
+          title: "text-xs md:text-sm",
+          confirmButton: "custom-confirm-button text-xs md:text-sm",
+        },
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch({ type: "CLEAR_ERROR" });
     const action = e.nativeEvent.submitter.name;
     if (action === "emailLogin") {
-      dispatch(loginByEmail({ email: user.email, password: user.password }));
+      dispatch(
+        loginByEmail({ email: user.email, password: user.password })
+      ).then(() => setLoading(false));
     }
   };
 
@@ -95,6 +129,7 @@ export const useLogin = () => {
     user,
     token,
     tokenGoogle,
+    loading,
     handleChange,
     handleSubmit,
     handleGoogleLogin,

@@ -1,7 +1,31 @@
 import { useLogin } from "./useLogin";
 import { Link } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
+import { ThemeContext } from "../theme/ThemeContext";
+import { useContext } from "react";
 const LoginForm = () => {
-  const { user, handleChange, handleSubmit, handleGoogleLogin } = useLogin();
+  const { user, handleChange, handleSubmit, handleGoogleLogin, loading } =
+    useLogin();
+
+  const { darkMode } = useContext(ThemeContext);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-neutral dark:bg-primary">
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          strokeColor={darkMode ? "#72c0d1" : "#000000"}
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-[100vw] h-[100vh] bg-neutral dark:bg-primary text-black flex items-center justify-center text-xl ">
