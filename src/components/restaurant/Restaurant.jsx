@@ -1,6 +1,8 @@
 import Navbar from "../navbar/Navbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RotatingLines } from "react-loader-spinner";
+import { ThemeContext } from "../theme/ThemeContext";
 import {
   getAllRestaurants,
   getRestaurantsByCategory,
@@ -51,7 +53,11 @@ const Restaurant = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const limit = 12;
+
+  const { darkMode } = useContext(ThemeContext);
 
   const dispatch = useDispatch();
 
@@ -66,7 +72,9 @@ const Restaurant = () => {
   const error = useSelector((state) => state.error);
 
   useEffect(() => {
-    dispatch(getAllRestaurants(searchTerm, page, limit));
+    dispatch(getAllRestaurants(searchTerm, page, limit)).then(() =>
+      setLoading(false)
+    );
   }, [dispatch, searchTerm, page]);
 
   let totalPages = Math.ceil(totalResults / limit);
@@ -95,6 +103,24 @@ const Restaurant = () => {
     setSearchTerm(e.target.value);
     setPage(1);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-neutral dark:bg-primary">
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          strokeColor={darkMode ? "#72c0d1" : "#000000"}
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-[100vh] text-primary bg-neutral dark:bg-primary dark:text-neutral">

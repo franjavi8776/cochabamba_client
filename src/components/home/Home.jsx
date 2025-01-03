@@ -33,6 +33,30 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const categories = useMemo(
+    () => [
+      {
+        name: "restaurant",
+        image: "/restaurant.png",
+        offsetX: -280,
+        offsetY: -210,
+      },
+      { name: "hotel", image: "/hotel.png", offsetX: 280, offsetY: -210 },
+      { name: "movie", image: "/cinema.png", offsetX: -280, offsetY: 210 },
+      { name: "tourism", image: "/tourism.png", offsetX: 280, offsetY: 210 },
+      { name: "emergency", image: "/emergency.png", offsetX: 0, offsetY: -210 },
+      { name: "park", image: "/park.png", offsetX: 425, offsetY: 0 },
+      { name: "taxi", image: "/taxi.png", offsetX: -425, offsetY: 0 },
+      {
+        name: "supermarket",
+        image: "/supermarket.png",
+        offsetX: 0,
+        offsetY: 210,
+      },
+    ],
+    []
+  );
+
   useEffect(() => {
     const handleResize = () => {
       setCenter({
@@ -52,32 +76,7 @@ const Home = () => {
     }
   }, [dispatch, token, id]);
 
-  const categories = useMemo(
-    () => [
-      {
-        name: "restaurant",
-        image: "/restaurant.png",
-        offsetX: -280,
-        offsetY: -210,
-      },
-      { name: "hotel", image: "/hotel.png", offsetX: 280, offsetY: -210 },
-      { name: "movie", image: "/cinema.png", offsetX: -280, offsetY: 210 },
-      { name: "tourism", image: "/tourism.png", offsetX: 280, offsetY: 210 },
-      { name: "hospital", image: "/hospital.png", offsetX: 0, offsetY: -210 },
-      { name: "park", image: "/park.png", offsetX: 425, offsetY: 0 },
-      { name: "disco", image: "/clubs.png", offsetX: -425, offsetY: 0 },
-      {
-        name: "supermarket",
-        image: "/supermarket.png",
-        offsetX: 0,
-        offsetY: 210,
-      },
-    ],
-    []
-  );
-
   useEffect(() => {
-    // Función para esperar que todas las imágenes carguen
     const loadImages = async () => {
       const imagePromises = categories.map(
         (category) =>
@@ -85,7 +84,7 @@ const Home = () => {
             const img = new Image();
             img.src = category.image;
             img.onload = resolve;
-            img.onerror = resolve; // Manejo de errores
+            img.onerror = resolve;
           })
       );
       await Promise.all(imagePromises);

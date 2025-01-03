@@ -30,7 +30,6 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   const mobileMapStyle = {
     width: "270px",
     height: "200px",
-    borderRadius: "10px",
   };
 
   const center = {
@@ -84,7 +83,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
             <CarouselImages images={restaurant.images} />
 
             {isLoaded ? (
-              <div className="border border-primary shadow-black shadow-md rounded-lg">
+              <div className="border border-primary shadow-black shadow-md ">
                 <GoogleMap
                   mapContainerStyle={
                     window.innerWidth <= 768 ? mobileMapStyle : desktopMapStyle
@@ -108,17 +107,13 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
               <p>
                 <small className="text-accent">Pedidos:</small>
                 <a
-                  href={`https://wa.me/${restaurant.codArea}${
-                    restaurant.phone
-                  }?text=Hola%20${encodeURIComponent(
-                    restaurant.name
-                  )},%20quisiera%20hacer%20un%20pedido.`}
+                  href={`https://wa.me/${restaurant.codArea}${restaurant.phone}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-secondary"
+                  className="hover:text-green-500"
                 >
                   <i
-                    className="fa fa-whatsapp mx-2 font-bold text-secondary"
+                    className="fa fa-whatsapp mx-2 font-bold text-green-500"
                     aria-hidden="true"
                   ></i>
                   <span>{`${restaurant.codArea} ${restaurant.phone}`}</span>
@@ -152,7 +147,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   href={restaurant.web}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-secondary"
+                  className="hover:text-green-500"
                 >
                   {restaurant.web}
                 </a>
