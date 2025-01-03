@@ -20,11 +20,13 @@ export const SET_LOADING = "SET_LOADING";
 export const UPDATE_USER = "UPDATE_USER";
 export const CLEAR_RESTAURANTS_BY_CATEGORY = "CLEAR_RESTAURANTS_BY_CATEGORY";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 //! dev
 // const endpoint = "http://localhost:3000/";
 
 //! prod
-const endpoint = "https://cochabamba-server.vercel.app/";
+const endpoint = API_URL;
 
 //! users
 export const getUsers = () => async (dispatch) => {
