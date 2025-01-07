@@ -2,7 +2,7 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment, getCommentsByRestaurant } from "../../redux/actions";
-import CarouselImages from "./Carrousel";
+import CarouselImages from "../carousel/Carrousel";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
@@ -70,7 +70,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-primary dark:bg-neutral text-primary dark:text-neutral bg-opacity-50 dark:bg-opacity-50 flex items-center justify-center z-50 ">
+    <div className="fixed inset-0 bg-primary dark:bg-neutral text-primary  dark:text-neutral bg-opacity-50 dark:bg-opacity-50 flex items-center justify-center z-50 ">
       <div className="bg-neutral dark:bg-primary w-[320px] md:w-[800px] lg:w-[1000px] max-h-[90vh] p-6 rounded-lg shadow-lg relative overflow-y-auto border border-primary dark:border-secondary">
         <button
           onClick={onClose}
@@ -110,10 +110,10 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   href={`https://wa.me/${restaurant.codArea}${restaurant.phone}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-green-500"
+                  className="hover:text-secondary"
                 >
                   <i
-                    className="fa fa-whatsapp mx-2 font-bold text-green-500"
+                    className="fa fa-whatsapp mx-2 font-bold text-secondary"
                     aria-hidden="true"
                   ></i>
                   <span>{`${restaurant.codArea} ${restaurant.phone}`}</span>
@@ -147,7 +147,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   href={restaurant.web}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-green-500"
+                  className="hover:text-secondary"
                 >
                   {restaurant.web}
                 </a>
@@ -159,7 +159,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Escribe tu comentario"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full border border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
+                  className="w-full border text-primary border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
                   required
                 />
                 <input
@@ -167,7 +167,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                   placeholder="Calificación (1-5)"
                   value={stars}
                   onChange={(e) => setStars(e.target.value)}
-                  className="w-full mt-2 border border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
+                  className="w-full mt-2 text-primary border border-primary dark:border-secondary p-2 rounded-md text-xs md:text-lg"
                   required
                   min="1"
                   max="5"

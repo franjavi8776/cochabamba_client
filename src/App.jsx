@@ -5,24 +5,23 @@ import UserRegister from "./components/register/Register";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Restaurant from "./components/restaurant/Restaurant";
-import Hospitals from "./components/hospital/Hospitals";
 import Hotel from "./components/hotel/Hotel";
 import RestaurantForm from "./components/restaurant/RestaurantForm";
-import RestaurantsByUser from "./components/restaurant/RestaurantsByUser";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
-import University from "./components/university/University";
 import Emergency from "./components/emergency/Emergency";
-import Store from "./components/store/Store";
-import Disco from "./components/disco/Disco";
-import Park from "./components/park/Park";
 import Gym from "./components/gym/Gym";
 import Taxi from "./components/taxi/Taxi";
-import Rent from "./components/rent/Rent";
-import Movie from "./components/movieTheater/Movie";
 import Supermarket from "./components/supermarket/Supermarket";
 import Tourism from "./components/tourism/Tourism";
-import Delivery from "./components/delivery/Delivery";
 import { useSelector } from "react-redux";
+import HotelForm from "./components/hotel/HotelForm";
+import UserPost from "./components/userPost/UserPost";
+import TaxiForm from "./components/taxi/TaxiForm";
+import SupermarketForm from "./components/supermarket/SupermarketForm";
+import GymForm from "./components/gym/GymForm";
+import TourismForm from "./components/tourism/TourismForm";
+import MovieTheaterForm from "./components/movieTheater/MovieTheaterForm";
+import MovieTheater from "./components/movieTheater/Movie";
 
 function App() {
   const token = useSelector((state) => state.token);
@@ -36,20 +35,13 @@ function App() {
           <Route path="/register" element={<UserRegister />} />
           <Route path="/login" element={<Login />} />
           <Route path="/restaurant" element={<Restaurant />} />
-          <Route path="/hospital" element={<Hospitals />} />
           <Route path="/hotel" element={<Hotel />} />
-          <Route path="/university" element={<University />} />
           <Route path="/emergency" element={<Emergency />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/disco" element={<Disco />} />
-          <Route path="/park" element={<Park />} />
+          <Route path="/movieTheater" element={<MovieTheater />} />
           <Route path="/gym" element={<Gym />} />
           <Route path="/taxi" element={<Taxi />} />
-          <Route path="/rent" element={<Rent />} />
-          <Route path="/movie" element={<Movie />} />
           <Route path="/supermarket" element={<Supermarket />} />
           <Route path="/tourism" element={<Tourism />} />
-          <Route path="/delivery" element={<Delivery />} />
           <Route
             path="/restaurant_form"
             element={
@@ -59,10 +51,58 @@ function App() {
             }
           />
           <Route
-            path="/restaurantsByUser"
+            path="/hotel_form"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <RestaurantsByUser />
+                <HotelForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/taxi_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <TaxiForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/supermarket_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <SupermarketForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gym_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <GymForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tourism_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <TourismForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movieTheater_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <MovieTheaterForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/User_post"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <UserPost />
               </ProtectedRoute>
             }
           />

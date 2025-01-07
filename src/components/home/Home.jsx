@@ -5,7 +5,15 @@ import { RotatingLines } from "react-loader-spinner";
 
 import Swal from "sweetalert2";
 
-import { logout, getRestaurantsByUser } from "../../redux/actions";
+import {
+  logout,
+  getRestaurantsByUser,
+  getHotelsByUser,
+  getTaxisByUser,
+  getSupermarketsByUser,
+  getGymsByUser,
+  getMovieTheatersByUser,
+} from "../../redux/actions";
 import { ThemeContext } from "../theme/ThemeContext";
 
 import Category from "../category/Category";
@@ -29,6 +37,11 @@ const Home = () => {
   const id = useSelector((state) => state.id);
 
   const restaurantsByUser = useSelector((state) => state.restaurantsByUser);
+  const hotelsByUser = useSelector((state) => state.hotelsByUser);
+  const taxisByUser = useSelector((state) => state.taxisByUser);
+  const supermarketsByUser = useSelector((state) => state.supermarketsByUser);
+  const gymsByUser = useSelector((state) => state.gymsByUser);
+  const movieTheatersByUser = useSelector((state) => state.moviesByUser);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,10 +55,15 @@ const Home = () => {
         offsetY: -210,
       },
       { name: "hotel", image: "/hotel.png", offsetX: 280, offsetY: -210 },
-      { name: "movie", image: "/cinema.png", offsetX: -280, offsetY: 210 },
+      {
+        name: "movieTheater",
+        image: "/cinema.png",
+        offsetX: -280,
+        offsetY: 210,
+      },
       { name: "tourism", image: "/tourism.png", offsetX: 280, offsetY: 210 },
       { name: "emergency", image: "/emergency.png", offsetX: 0, offsetY: -210 },
-      { name: "park", image: "/park.png", offsetX: 425, offsetY: 0 },
+      { name: "gym", image: "/gym.png", offsetX: 425, offsetY: 0 },
       { name: "taxi", image: "/taxi.png", offsetX: -425, offsetY: 0 },
       {
         name: "supermarket",
@@ -73,6 +91,11 @@ const Home = () => {
   useEffect(() => {
     if (token) {
       dispatch(getRestaurantsByUser(id));
+      dispatch(getHotelsByUser(id));
+      dispatch(getTaxisByUser(id));
+      dispatch(getSupermarketsByUser(id));
+      dispatch(getGymsByUser(id));
+      dispatch(getMovieTheatersByUser(id));
     }
   }, [dispatch, token, id]);
 
@@ -151,22 +174,6 @@ const Home = () => {
     });
   };
 
-  const handleModalClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalCochabamba = () => {
-    setIsModalCochabamba(true);
-  };
-
-  const handleClickRestaurants = () => {
-    navigate("/restaurantsByUser");
-  };
-
-  const handleClickUser = () => {
-    navigate("/register");
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-neutral dark:bg-primary">
@@ -190,7 +197,7 @@ const Home = () => {
       <div className="flex-1">
         <button
           onClick={toggleTheme}
-          className="absolute bottom-10 left-5 p-1 md:p-2 rounded-full bg-primary dark:bg-neutral text-accent dark:text-secondary transition-colors duration-300 border border-secondary"
+          className="absolute bottom-10 left-5 p-1 md:p-2 rounded-full bg-primary dark:bg-neutral text-accent dark:text-accent transition-colors duration-300 border border-secondary"
         >
           <i
             className={`fa ${
@@ -212,8 +219,8 @@ const Home = () => {
         ) : (
           <>
             <div className="absolute top-5 right-5 ">
-              <button onClick={handleClickUser}>
-                <span className="mr-2 text-sm md:text-lg hover:text-secondary">
+              <button onClick={() => navigate("/register")}>
+                <span className="mr-2 text-sm md:text-lg  hover:text-secondary">
                   {firstName}
                 </span>
                 <i
@@ -224,7 +231,7 @@ const Home = () => {
             </div>
 
             <div className="absolute top-16 right-5 text-sm  md:text-lg hover:text-secondary z-10">
-              <button onClick={handleModalClick}>
+              <button onClick={() => setIsModalOpen(true)}>
                 <span>Publica tu negocio</span>
                 <i
                   className="fa fa-plus ml-2 text-sm md:text-lg  text-secondary"
@@ -233,9 +240,14 @@ const Home = () => {
               </button>
             </div>
 
-            {restaurantsByUser.length > 0 && (
+            {(hotelsByUser.length > 0 ||
+              restaurantsByUser.length > 0 ||
+              taxisByUser.length > 0 ||
+              supermarketsByUser.length > 0 ||
+              gymsByUser.length > 0 ||
+              movieTheatersByUser > 0) && (
               <div className="absolute top-28 right-5 text-sm md:text-lg hover:text-secondary z-10">
-                <button onClick={handleClickRestaurants}>
+                <button onClick={() => navigate("/user_post")}>
                   <span>Revisa tus anuncios</span>
                   <i
                     className="fa fa-eye ml-2 text-secondary"
@@ -261,10 +273,14 @@ const Home = () => {
         )}
         <h5
           style={categoryStyles(0, 0)}
-          className="w-[215px] md:w-[430px] lg:w-[600px]"
+          className="w-[270px] md:w-[550px] lg:w-[800px]"
         >
-          <button onClick={handleModalCochabamba}>
-            <img src="logo.png" alt="logo" />
+          <button onClick={() => setIsModalCochabamba(true)}>
+            {darkMode ? (
+              <img src="logoBlanco.png" alt="logo" />
+            ) : (
+              <img src="logoCeleste.png" alt="logo" />
+            )}
           </button>
         </h5>
         {categories.map((category, index) => (

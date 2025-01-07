@@ -1,4 +1,3 @@
-import "./styles.css";
 import GoogleMap from "../googleMap/GoogleMap";
 import { useLoadScript } from "@react-google-maps/api";
 import { useEffect, useState } from "react";

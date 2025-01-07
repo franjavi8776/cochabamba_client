@@ -135,7 +135,7 @@ const Restaurant = () => {
             onChange={handleSearchChange}
           />
         </div>
-        <div className="w-full md:w-[80%] lg:w-full lg:h-20  flex flex-wrap gap-5 justify-center lg:justify-between text-xs lg:text-xl ">
+        <div className="w-full md:w-[80%] lg:w-full lg:h-32  flex flex-wrap gap-5 justify-center lg:justify-between text-xs lg:text-xl ">
           {[
             "Todos",
             "Churrasqueria",
@@ -147,6 +147,12 @@ const Restaurant = () => {
             "Rapida",
             "Cochabambina",
             "Mariscos",
+            "Cafes",
+            "Vegetariana",
+            "Pizzeria",
+            "Heladeria",
+            "Pasteleria",
+            "Internacional",
           ].map((category) => (
             <button
               key={category}

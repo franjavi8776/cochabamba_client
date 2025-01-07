@@ -6,66 +6,44 @@ const HomeModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleRestaurant = () => {
-    navigate("/restaurant_form");
-  };
-
   return (
     <div className="fixed inset-0  flex justify-center z-50 pt-5 bg-primary text-neutral dark:text-primary bg-opacity-50">
-      <div className="bg-primary dark:bg-neutral w-[320px] md:w-[380px] h-[500px] md:h-[650px]  p-6 rounded-lg shadow-sm shadow-neutral text-lg relative border border-secondary">
+      <div className="bg-primary dark:bg-neutral w-[200px] h-[460px] md:w-[300px] md:h-[600px] p-6 rounded-lg shadow-sm shadow-neutral text-lg relative border border-secondary">
         <button
           onClick={onClose}
           className="absolute top-0 right-1 text-2xl  hover:text-secondary"
         >
           ✖
         </button>
-        <h1 className="text-center text-secondary text-lg md:text-2xl">
-          Escoge la categoria de tu negocio
+        <h1 className="text-center text-secondary text-lg md:text-xl">
+          Escoge una categoria
         </h1>
 
-        <div className="flex flex-wrap justify-center items-center mt-5 text-sm md:text-lg gap-5 ">
-          <button onClick={handleRestaurant}>
+        <div className="flex flex-wrap justify-center items-center mt-5 text-sm md:text-lg gap-2 md:gap-5 ">
+          <button onClick={() => navigate("/restaurant_form")}>
             <p className="py-2 px-4 hover:text-secondary">Restaurant</p>
           </button>
-          <button>
+          <button onClick={() => navigate("/hotel_form")}>
             <p className="py-2 px-4 hover:text-secondary">Hoteles</p>
           </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Hospitales</p>
+          <button onClick={() => navigate("/taxi_form")}>
+            <p className="py-2 px-4 hover:text-secondary">Transporte</p>
           </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Turismo</p>
-          </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Diversion</p>
-          </button>
-          <button>
+          <button onClick={() => navigate("/movieTheater_form")}>
             <p className="py-2 px-4 hover:text-secondary">Cines</p>
           </button>
-          <button>
+          <button onClick={() => navigate("/supermarket_form")}>
             <p className="py-2 px-4 hover:text-secondary">Supermercados</p>
           </button>
 
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Electrodomesticos</p>
+          <button onClick={() => navigate("/gym_form")}>
+            <p className="py-2 px-4 hover:text-secondary">Deportes</p>
+          </button>
+          <button onClick={() => navigate("/tourism_form")}>
+            <p className="py-2 px-4 hover:text-secondary ">Turismo</p>
           </button>
           <button>
-            <p className="py-2 px-4 hover:text-secondary">Ferreterias</p>
-          </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Cambio</p>
-          </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Museos</p>
-          </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary">Parques</p>
-          </button>
-          <button>
-            <p className="py-2 px-4 hover:text-secondary ">Tiendas</p>
-          </button>
-          <button>
-            <p className="py-2 px-4  hover:text-secondary">Peluquerias</p>
+            <p className="py-2 px-4  hover:text-secondary">Emergencias</p>
           </button>
         </div>
       </div>
