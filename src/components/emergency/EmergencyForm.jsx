@@ -3,45 +3,45 @@ import { useLoadScript } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { createRestaurant, updateRestaurant } from "../../redux/actions";
+import { createEmergency, updateEmergency } from "../../redux/actions";
 import { useNavigate, useLocation } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import Swal from "sweetalert2";
 
-const RestaurantForm = () => {
+const EmergencyForm = () => {
   const location = useLocation();
-  const { restaurantState } = location.state || {};
+  const { emergencyState } = location.state || {};
 
   const [images, setImages] = useState([]);
   const [offerInput, setOfferInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
-  const [restaurant, setRestaurant] = useState({
-    id: restaurantState?.id || null,
-    name: restaurantState?.name || "",
-    location: restaurantState?.location || {
+  const [emergency, setEmergency] = useState({
+    id: emergencyState?.id || null,
+    name: emergencyState?.name || "",
+    location: emergencyState?.location || {
       latitude: "",
       longitude: "",
     },
-    images: restaurantState?.images
-      ? restaurantState.images.map((image) =>
+    images: emergencyState?.images
+      ? emergencyState.images.map((image) =>
           typeof image === "string" ? { file: null, preview: image } : image
         )
       : [],
-    offers: restaurantState?.offers || [],
-    codArea: restaurantState?.codArea || "591",
-    phone: restaurantState?.phone || "",
-    city: restaurantState?.city || "",
-    country: restaurantState?.country || "",
-    web: restaurantState?.web || "",
-    time: restaurantState?.time || {
+    offers: emergencyState?.offers || [],
+    codArea: emergencyState?.codArea || "591",
+    phone: emergencyState?.phone || "",
+    city: emergencyState?.city || "",
+    country: emergencyState?.country || "",
+    web: emergencyState?.web || "",
+    time: emergencyState?.time || {
       weekdays: "",
       weekends: "",
     },
-    zone: restaurantState?.zone || "Central",
-    categories: restaurantState?.categories || [],
-    isActive: restaurantState?.isActive || true,
-    user_id: restaurantState?.user_id || "",
+    zone: emergencyState?.zone || "Central",
+    categories: emergencyState?.categories || [],
+    isActive: emergencyState?.isActive || true,
+    user_id: emergencyState?.user_id || "",
   });
 
   const navigate = useNavigate();
@@ -63,15 +63,15 @@ const RestaurantForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRestaurant({
-      ...restaurant,
+    setEmergency({
+      ...emergency,
       [name]: value,
     });
   };
 
   const handleAddOffer = () => {
     if (offerInput.trim() === "") return;
-    setRestaurant((prevState) => ({
+    setEmergency((prevState) => ({
       ...prevState,
       offers: [...prevState.offers, offerInput],
     }));
@@ -79,7 +79,7 @@ const RestaurantForm = () => {
   };
 
   const handleRemoveOffer = (index) => {
-    setRestaurant((prevState) => {
+    setEmergency((prevState) => {
       const updatedOffers = [...prevState.offers];
       updatedOffers.splice(index, 1);
       return { ...prevState, offers: updatedOffers };
@@ -88,7 +88,7 @@ const RestaurantForm = () => {
 
   const handleAddCategory = () => {
     if (categoryInput.trim() === "") return;
-    setRestaurant((prevState) => ({
+    setEmergency((prevState) => ({
       ...prevState,
       categories: [...prevState.categories, categoryInput],
     }));
@@ -96,7 +96,7 @@ const RestaurantForm = () => {
   };
 
   const handleRemoveCategory = (index) => {
-    setRestaurant((prevState) => {
+    setEmergency((prevState) => {
       const updatedCategories = [...prevState.categories];
       updatedCategories.splice(index, 1);
       return { ...prevState, categories: updatedCategories };
@@ -105,7 +105,7 @@ const RestaurantForm = () => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    if (restaurant.images.length + files.length > 10) {
+    if (emergency.images.length + files.length > 10) {
       alert("Solo puedes subir un máximo de 10 fotos.");
       return;
     }
@@ -116,14 +116,14 @@ const RestaurantForm = () => {
 
     setImages((prevImages) => [...prevImages, ...newImages]);
 
-    setRestaurant((prevState) => ({
+    setEmergency((prevState) => ({
       ...prevState,
       images: [...prevState.images, ...newImages],
     }));
   };
 
   const handleRemoveImage = (index) => {
-    setRestaurant((prevState) => {
+    setEmergency((prevState) => {
       const updatedImages = [...prevState.images];
       updatedImages.splice(index, 1);
       return { ...prevState, images: updatedImages };
@@ -133,7 +133,7 @@ const RestaurantForm = () => {
   const cleanForm = () => {
     images.forEach((image) => URL.revokeObjectURL(image.preview));
     setImages([]);
-    setRestaurant({
+    setEmergency({
       name: "",
       location: {
         latitude: "",
@@ -158,37 +158,32 @@ const RestaurantForm = () => {
   };
 
   const categoryOptions = [
-    "Churrasqueria",
-    "Polleria",
-    "Salteñerias",
-    "Americana",
-    "Mexicana",
-    "Alitas",
-    "Rapida",
-    "Cochabambina",
-    "Mariscos",
-    "Cafes",
-    "Vegetariana",
-    "Pizzeria",
-    "Heladeria",
-    "Pasteleria",
-    "Internacional",
+    "Todos",
+    "Bomberos",
+    "Policia",
+    "Hospitales",
+    "SAR Bolivia",
+    "Defensa Civil",
+    "Cruz Roja",
+    "Compañia de Servicios",
+    "Ambulancias",
+    "Farmacias",
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const existingImages = restaurant.images
+    const existingImages = emergency.images
       .filter((img) => !img.file)
       .map((img) => img.preview || img); // Filtra solo URLs
 
-    const newImages = restaurant.images.filter((img) => img.file);
+    const newImages = emergency.images.filter((img) => img.file);
 
-    if (restaurant.id) {
+    if (emergency.id) {
       dispatch(
-        updateRestaurant(
-          restaurant.id,
-          { ...restaurant, images: existingImages },
+        updateEmergency(
+          emergency.id,
+          { ...emergency, images: existingImages },
           newImages,
           id
         )
@@ -207,7 +202,7 @@ const RestaurantForm = () => {
         },
       });
     } else {
-      dispatch(createRestaurant(restaurant, newImages, id));
+      dispatch(createEmergency(emergency, newImages, id));
       Swal.fire({
         position: "top",
         title: "Registro Exitoso",
@@ -224,20 +219,20 @@ const RestaurantForm = () => {
     }
 
     cleanForm();
-    navigate("/restaurant");
+    navigate("/emergency");
   };
 
   const handleCodArea = (value) => {
-    setRestaurant({
-      ...restaurant,
+    setEmergency({
+      ...emergency,
       codArea: value,
     });
   };
 
-  const handleLocationChange = (newlocation) => {
-    setRestaurant((prevState) => ({
+  const handleLocationChange = (newLocation) => {
+    setEmergency((prevState) => ({
       ...prevState,
-      location: newlocation,
+      location: newLocation,
     }));
   };
 
@@ -250,14 +245,14 @@ const RestaurantForm = () => {
           className="w-[320px] md:w-[700px] lg:w-[900px] min-h-[700px] p-5 bg-neutral border border-secondary first-line:rounded-xl rounded-lg"
         >
           <h1 className="m-8 text-sm md:text-3xl text-center">
-            Registro de Restaurant
+            Registro de Emergencias
           </h1>
           <div className="w-[100%] flex mb-3 text-xs md:text-lg">
             <label className="w-[25%] p-1">Nombre:</label>
             <input
               autoComplete="off"
               name="name"
-              value={restaurant.name}
+              value={emergency.name}
               onChange={handleChange}
               className="w-[75%] rounded-md p-1  border border-primary"
               type="text"
@@ -272,8 +267,8 @@ const RestaurantForm = () => {
             {isLoaded ? (
               <GoogleMap
                 location={{
-                  latitude: String(restaurant.location.latitude),
-                  longitude: String(restaurant.location.longitude),
+                  latitude: String(emergency.location.latitude),
+                  longitude: String(emergency.location.longitude),
                 }}
                 onLocationChange={handleLocationChange}
               />
@@ -289,7 +284,7 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="codArea"
                 name="codArea"
-                value={restaurant.codArea}
+                value={emergency.codArea}
                 onChange={handleCodArea}
                 type="text"
                 className="w-[40%] rounded-md border border-black"
@@ -314,7 +309,7 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="phone"
                 name="phone"
-                value={restaurant.phone}
+                value={emergency.phone}
                 onChange={handleChange}
                 className="w-[65%] rounded-md p-1  border border-black"
                 type="text"
@@ -329,7 +324,7 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="city"
                 name="city"
-                value={restaurant.city}
+                value={emergency.city}
                 onChange={handleChange}
                 className="w-[70%] rounded-md p-1  border border-black"
                 type="text"
@@ -342,7 +337,7 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="country"
                 name="country"
-                value={restaurant.country}
+                value={emergency.country}
                 onChange={handleChange}
                 className="w-[79%] rounded-md p-1  border border-black"
                 type="text"
@@ -356,7 +351,7 @@ const RestaurantForm = () => {
               autoComplete="off"
               id="web"
               name="web"
-              value={restaurant.web}
+              value={emergency.web}
               onChange={handleChange}
               className="w-[70%] rounded-md p-1  border border-black"
               type="url"
@@ -370,11 +365,11 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="time-weekdays"
                 name="time-weekdays"
-                value={restaurant.time.weekdays}
+                value={emergency.time.weekdays}
                 onChange={(e) =>
-                  setRestaurant({
-                    ...restaurant,
-                    time: { ...restaurant.time, weekdays: e.target.value },
+                  setEmergency({
+                    ...emergency,
+                    time: { ...emergency.time, weekdays: e.target.value },
                   })
                 }
                 className="w-[75%] rounded-md p-1  border border-black"
@@ -388,11 +383,11 @@ const RestaurantForm = () => {
                 autoComplete="off"
                 id="time-weekends"
                 name="time-weekends"
-                value={restaurant.time.weekends}
+                value={emergency.time.weekends}
                 onChange={(e) =>
-                  setRestaurant({
-                    ...restaurant,
-                    time: { ...restaurant.time, weekends: e.target.value },
+                  setEmergency({
+                    ...emergency,
+                    time: { ...emergency.time, weekends: e.target.value },
                   })
                 }
                 className="w-[75%] rounded-md p-1  border border-black"
@@ -406,7 +401,7 @@ const RestaurantForm = () => {
             <select
               id="zone"
               name="zone"
-              value={restaurant.zone}
+              value={emergency.zone}
               onChange={handleChange}
               className="w-[80%] rounded-md p-1  border border-black"
             >
@@ -447,7 +442,7 @@ const RestaurantForm = () => {
           </div>
           <div className="w-[100%] mb-3 text-xs md:text-lg">
             <ul className="bg-secondary">
-              {restaurant.categories.map((category, index) => (
+              {emergency.categories.map((category, index) => (
                 <li
                   key={index}
                   className="flex justify-between items-center mb-1"
@@ -485,7 +480,7 @@ const RestaurantForm = () => {
           </div>
           <div className="w-[100%] text-xs md:text-lg">
             <ul className="bg-secondary">
-              {restaurant.offers.map((offer, index) => (
+              {emergency.offers.map((offer, index) => (
                 <li key={index} className="flex justify-between w-[100%] mb-1">
                   <p className="">{offer}</p>
                   <button
@@ -515,7 +510,7 @@ const RestaurantForm = () => {
               </div>
             </div>
             <div className="w-[60%] md:w-[80%] flex flex-wrap gap-4 pl-10">
-              {restaurant.images.map((image, index) => (
+              {emergency.images.map((image, index) => (
                 <div key={index} className="relative w-28 h-28">
                   <img
                     src={image.preview || image}
@@ -538,7 +533,7 @@ const RestaurantForm = () => {
               className=" px-4 py-2 bg-primary rounded-md text-neutral border border-secondary hover:text-secondary"
               type="submit"
             >
-              {restaurantState?.id ? "Actualizar" : "Registrar"}
+              {emergencyState?.id ? "Actualizar" : "Registrar"}
             </button>
           </div>
         </form>
@@ -546,4 +541,4 @@ const RestaurantForm = () => {
     </div>
   );
 };
-export default RestaurantForm;
+export default EmergencyForm;

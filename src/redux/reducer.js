@@ -72,6 +72,14 @@ import {
   GET_COMMENTS_BY_GYM,
   GET_COMMENTS_BY_TOURISM,
   GET_COMMENTS_BY_MOVIE,
+  GET_ALL_EMERGENCIES,
+  GET_EMERGENCIES_BY_USER,
+  GET_EMERGENCIES_BY_CATEGORY,
+  CREATE_EMERGENCY,
+  UPDATE_EMERGENCY,
+  UPDATE_EMERGENCY_STATUS,
+  DELETE_EMERGENCY,
+  GET_COMMENTS_BY_EMERGENCY,
 
   //! Error
 } from "./actions";
@@ -110,6 +118,10 @@ const initialState = {
   //! Movie
   movies: [],
   moviesByUser: [],
+  //! Emergency
+  emergencies: [],
+  emergenciesByUser: [],
+  emergenciesByCategory: [],
   //! Comment
   comments: [],
   //! Error
@@ -606,6 +618,71 @@ const reducer = (state = initialState, action) => {
         movies: updatedMovie,
       };
     }
+    //! Emergency
+    case GET_ALL_EMERGENCIES:
+      return {
+        ...state,
+        emergencies: action.payload.emergencies,
+        totalResults: action.payload.totalResults,
+        emergenciesByCategory: [],
+        error: null,
+      };
+    case GET_EMERGENCIES_BY_USER:
+      return {
+        ...state,
+        emergenciesByUser: action.payload,
+      };
+    case GET_EMERGENCIES_BY_CATEGORY:
+      return {
+        ...state,
+        emergenciesByCategory: action.payload.emergencies,
+        totalResults: action.payload.totalResults,
+        error: null,
+      };
+    case CREATE_EMERGENCY:
+      return {
+        ...state,
+        emergencies: [...state.emergencies, action.payload],
+      };
+    case UPDATE_EMERGENCY:
+      return {
+        ...state,
+        emergencies: state.emergencies.map((emergency) =>
+          emergency.id === action.payload.id ? action.payload : emergency
+        ),
+      };
+    case UPDATE_EMERGENCY_STATUS: {
+      const updatedEmergencyStatus = state.emergencies.map((emergency) =>
+        emergency.id === action.payload.id
+          ? { ...emergency, isActive: action.payload.isActive }
+          : emergency
+      );
+      const updatedEmergenciesByUserStatus = state.emergenciesByUser.map(
+        (emergency) =>
+          emergency.id === action.payload.id
+            ? { ...emergency, isActive: action.payload.isActive }
+            : emergency
+      );
+      return {
+        ...state,
+        emergencies: updatedEmergencyStatus,
+        emergenciesByUser: updatedEmergenciesByUserStatus,
+      };
+    }
+    case DELETE_EMERGENCY: {
+      const updatedEmergency = state.emergencies.filter(
+        (emergency) => emergency.id !== action.payload
+      );
+      const updatedEmergenciesByUser = state.emergenciesByUser.filter(
+        (emergency) => emergency.id !== action.payload
+      );
+
+      return {
+        ...state,
+        emergenciesByUser: updatedEmergenciesByUser,
+        emergencies: updatedEmergency,
+      };
+    }
     //! Comment
     case CREATE_COMMENT: {
       const newComments = [...state.comments, action.payload];
@@ -645,6 +722,11 @@ const reducer = (state = initialState, action) => {
         comments: action.payload,
       };
     case GET_COMMENTS_BY_MOVIE:
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    case GET_COMMENTS_BY_EMERGENCY:
       return {
         ...state,
         comments: action.payload,

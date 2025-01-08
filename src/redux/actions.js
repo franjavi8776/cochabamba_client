@@ -62,6 +62,14 @@ export const CREATE_MOVIE = "CREATE_MOVIE";
 export const UPDATE_MOVIE = "UPDATE_MOVIE";
 export const UPDATE_MOVIE_STATUS = "UPDATE_MOVIE_STATUS";
 export const DELETE_MOVIE = "DELETE_MOVIE";
+//! EMERGENCY
+export const GET_ALL_EMERGENCIES = "GET_ALL_EMERGENCIES";
+export const GET_EMERGENCIES_BY_USER = "GET_EMERGENCIES_BY_USER";
+export const GET_EMERGENCIES_BY_CATEGORY = "GET_EMERGENCIES_BY_CATEGORY";
+export const CREATE_EMERGENCY = "CREATE_EMERGENCY";
+export const UPDATE_EMERGENCY = "UPDATE_EMERGENCY";
+export const UPDATE_EMERGENCY_STATUS = "UPDATE_EMERGENCY_STATUS";
+export const DELETE_EMERGENCY = "DELETE_EMERGENCY";
 //! COMMENTS
 export const CREATE_COMMENT = "CREATE_COMMENT";
 export const GET_COMMENTS_BY_RESTAURANT = "GET_COMMENTS_BY_RESTAURANT";
@@ -71,6 +79,7 @@ export const GET_COMMENTS_BY_SUPERMARKET = "GET_COMMENTS_BY_SUPERMARKET";
 export const GET_COMMENTS_BY_GYM = "GET_COMMENTS_BY_GYM";
 export const GET_COMMENTS_BY_TOURISM = "GET_COMMENTS_BY_TOURISM";
 export const GET_COMMENTS_BY_MOVIE = "GET_COMMENTS_BY_MOVIE";
+export const GET_COMMENTS_BY_EMERGENCY = "GET_COMMENTS_BY_EMERGENCY";
 
 //! ERROR
 export const ERROR_404 = "ERROR_404";
@@ -1232,7 +1241,7 @@ export const deleteTourism = (id) => async (dispatch) => {
   try {
     await axios.delete(`${endpoint}tourisms/${id}`);
     dispatch({
-      type: DELETE_GYM,
+      type: DELETE_TOURISM,
       payload: id,
     });
   } catch (error) {
@@ -1392,6 +1401,184 @@ export const deleteMovieTheater = (id) => async (dispatch) => {
     console.error(error);
   }
 };
+//! Emergency
+export const getAllEmergencies =
+  (search = "", page = 1, limit = 12) =>
+  async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `${endpoint}emergencies?search=${search}&page=${page}&limit=${limit}`
+      );
+      //console.log(data);
+      dispatch({
+        type: GET_ALL_EMERGENCIES,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const getEmergenciesByUser = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${endpoint}emergencies/${id}`);
+
+    dispatch({
+      type: GET_EMERGENCIES_BY_USER,
+      payload: data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getEmergenciesByCategory =
+  (categories, page, limit) => async (dispatch) => {
+    try {
+      const query = categories
+        .map((cat) => `categories=${encodeURIComponent(cat)}`)
+        .join("&");
+
+      const { data } = await axios.get(
+        `${endpoint}emergencies/categories?${query}&page=${page}&limit=${limit}`
+      );
+
+      dispatch({
+        type: GET_EMERGENCIES_BY_CATEGORY,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response.status === 404) {
+        dispatch({
+          type: ERROR_404,
+          payload: "Emergencias no encontrados",
+        });
+      }
+    }
+  };
+
+export const createEmergency =
+  (emergency, images, userId) => async (dispatch) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", emergency.name);
+      formData.append("location", JSON.stringify(emergency.location));
+      formData.append("offers", JSON.stringify(emergency.offers));
+      formData.append("codArea", emergency.codArea);
+      formData.append("phone", emergency.phone);
+      formData.append("city", emergency.city);
+      formData.append("country", emergency.country);
+      formData.append("web", emergency.web);
+      formData.append("time", JSON.stringify(emergency.time));
+      formData.append("zone", emergency.zone);
+      formData.append("categories", JSON.stringify(emergency.categories));
+      formData.append("user_id", userId);
+
+      images.forEach((image) => {
+        if (image.file instanceof File || image.file instanceof Blob) {
+          formData.append("images", image.file);
+        } else {
+          console.error("No es un archivo válido:", image);
+        }
+      });
+
+      const { data } = await axios.post(`${endpoint}emergencies`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      //console.log(data);
+      dispatch({
+        type: CREATE_EMERGENCY,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const updateEmergency =
+  (emergencyId, emergency, images, userId) => async (dispatch) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", emergency.name);
+      formData.append("location", JSON.stringify(emergency.location));
+      formData.append("offers", JSON.stringify(emergency.offers));
+      formData.append("codArea", emergency.codArea);
+      formData.append("phone", emergency.phone);
+      formData.append("city", emergency.city);
+      formData.append("country", emergency.country);
+      formData.append("web", emergency.web);
+      formData.append("time", JSON.stringify(emergency.time));
+      formData.append("zone", emergency.zone);
+      formData.append("categories", JSON.stringify(emergency.categories));
+      formData.append("user_id", userId);
+
+      emergency.images.forEach((image) => {
+        if (typeof image === "string") {
+          formData.append("existingImages", image);
+        }
+      });
+
+      images.forEach((image) => {
+        if (image.file instanceof File || image.file instanceof Blob) {
+          formData.append("images", image.file);
+        } else {
+          console.error("No es un archivo válido:", image);
+        }
+      });
+      for (let pair of formData.entries()) {
+        console.log("data", pair[0] + ": " + pair[1]);
+      }
+
+      const { data } = await axios.put(
+        `${endpoint}tourisms/${emergencyId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      //console.log("data", data);
+      dispatch({
+        type: UPDATE_EMERGENCY,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const updateIsActiveEmergency = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.patch(`${endpoint}emergencies/isActive/${id}`);
+    //console.log("data", data);
+    dispatch({
+      type: UPDATE_EMERGENCY_STATUS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteEmergency = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`${endpoint}emergencies/${id}`);
+    dispatch({
+      type: DELETE_EMERGENCY,
+      payload: id,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //! Comments
 export const createComment = (comment) => async (dispatch) => {
   try {
@@ -1490,6 +1677,19 @@ export const getCommentsByMovieTheater = (id) => async (dispatch) => {
     //console.log(data);
     dispatch({
       type: GET_COMMENTS_BY_MOVIE,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCommentsByEmergency = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${endpoint}comments/emergency/${id}`);
+    //console.log(data);
+    dispatch({
+      type: GET_COMMENTS_BY_EMERGENCY,
       payload: data,
     });
   } catch (error) {

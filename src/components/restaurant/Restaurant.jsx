@@ -62,13 +62,10 @@ const Restaurant = () => {
   const dispatch = useDispatch();
 
   const restaurants = useSelector((state) => state.restaurants);
-
   const totalResults = useSelector((state) => state.totalResults);
-
   const restaurantsByCategory = useSelector(
     (state) => state.restaurantsByCategory
   );
-
   const error = useSelector((state) => state.error);
 
   useEffect(() => {
@@ -192,7 +189,7 @@ const Restaurant = () => {
                       {restaurant.name}
                     </h1>
                     <p className="m-3">
-                      {restaurant.averageStars ? (
+                      {restaurant.averageStars > 0 ? (
                         renderStars(restaurant.averageStars)
                       ) : (
                         <small className="text-accent">Sin Puntacion</small>

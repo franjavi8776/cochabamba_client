@@ -1,59 +1,20 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createComment, getCommentsByRestaurant } from "../../redux/actions";
+import { createComment, getCommentsByEmergency } from "../../redux/actions";
 import CarouselImages from "../carousel/Carrousel";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-const roundStars = (stars) => {
-  if (stars > 4.5) {
-    return 5;
-  } else if (stars > 4) {
-    return 4.5;
-  } else if (stars > 3.5) {
-    return 4;
-  } else if (stars > 3) {
-    return 3.5;
-  } else if (stars > 2.5) {
-    return 3;
-  } else if (stars > 2) {
-    return 2.5;
-  } else if (stars > 1.5) {
-    return 2;
-  } else if (stars > 1) {
-    return 1.5;
-  } else {
-    return 1;
-  }
-};
-
-const renderStars = (stars) => {
-  const roundedStars = roundStars(stars);
-  const fullStars = Math.floor(roundedStars);
-  const halfStars = roundedStars % 1 >= 0.5 ? 1 : 0;
-  const emptyStars = 5 - fullStars - halfStars;
-
-  const starArray = [
-    ...Array(fullStars).fill("fa fa-star"),
-    ...Array(halfStars).fill("fa fa-star-half-o"),
-    ...Array(emptyStars).fill("fa fa-star-o"),
-  ];
-
-  return starArray.map((starClass, index) => (
-    <i key={index} className={`${starClass}`} />
-  ));
-};
-
-const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
+const EmergencyModal = ({ isOpen, onClose, emergency }) => {
   const [comment, setComment] = useState("");
   const [stars, setStars] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCommentsByRestaurant(restaurant.id));
-  }, [dispatch, restaurant.id]);
+    dispatch(getCommentsByEmergency(emergency.id));
+  }, [dispatch,emergency.id]);
 
   const comments = useSelector((state) => state.comments);
   const id = useSelector((state) => state.id);
@@ -72,8 +33,8 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   };
 
   const center = {
-    lat: restaurant?.location.latitude || 0,
-    lng: restaurant?.location.longitude || 0,
+    lat: emergency?.location.latitude || 0,
+    lng: emergency?.location.longitude || 0,
   };
 
   const handleCommentSubmit = (e) => {
@@ -84,11 +45,11 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
         createComment({
           comments: comment,
           stars,
-          restaurant_id: restaurant.id,
+          emergency_id: emergency.id,
           user_id: id,
         })
       ).then(() => {
-        dispatch(getCommentsByRestaurant(restaurant.id));
+        dispatch(getCommentsByEmergency(emergency.id));
       });
       Swal.fire({
         position: "top",
@@ -102,6 +63,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
           confirmButton: "custom-confirm-button text-xs md:text-lg",
         },
       });
+
       setComment("");
       setStars("");
     }
@@ -118,7 +80,7 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
         </button>
         <div className="flex flex-col md:flex-row gap-8 mt-10">
           <div>
-            <CarouselImages images={restaurant.images} />
+            <CarouselImages images={emergency.images} />
 
             {isLoaded ? (
               <div className="border border-primary dark:border-secondary">
@@ -139,13 +101,13 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
           <div>
             <div className="text-sm md:text-lg space-y-1 md:space-y-1.5">
               <h1>
-                <small className="text-accent">Restaurant:</small>{" "}
-                <span>{restaurant.name}</span>
+                <small className="text-accent">Nombre:</small>{" "}
+                <span>{emergency.name}</span>
               </h1>
               <p>
                 <small className="text-accent">Pedidos:</small>
                 <a
-                  href={`https://wa.me/${restaurant.codArea}${restaurant.phone}`}
+                  href={`https://wa.me/${emergency.codArea}${emergency.phone}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
@@ -154,40 +116,40 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
                     className="fa fa-whatsapp mx-2 font-bold text-secondary"
                     aria-hidden="true"
                   ></i>
-                  <span>{`${restaurant.codArea} ${restaurant.phone}`}</span>
+                  <span>{`${emergency.codArea} ${emergency.phone}`}</span>
                 </a>
               </p>
               <p>
                 <small className="text-accent">Ofertas:</small>
-                <span className="mx-2">{restaurant.offers[0]}</span>
+                <span className="mx-2">{emergency.offers[0]}</span>
               </p>
               <p>
-                <small className="text-accent">Zona:</small> {restaurant.zone}
+                <small className="text-accent">Zona:</small> {emergency.zone}
               </p>
               <p>
                 <small className="text-accent">Ciudad:</small>
-                <span className="mx-2">{restaurant.city}</span>
+                <span className="mx-2">{emergency.city}</span>
               </p>
               <p>
                 <small className="text-accent">Pais:</small>
-                <span className="mx-2">{restaurant.country}</span>
+                <span className="mx-2">{emergency.country}</span>
               </p>
               <p>
                 <small className="text-accent">Lun-Vie:</small>
-                <span className=" mx-2">{restaurant.time.weekdays}</span>
+                <span className=" mx-2">{emergency.time.weekdays}</span>
                 <br />
                 <small className="text-accent">Sab-Dom:</small>
-                <span className=" mx-2">{restaurant.time.weekends}</span>
+                <span className=" mx-2">{emergency.time.weekends}</span>
               </p>
               <p>
                 <small className="text-accent">Web: </small>
                 <a
-                  href={restaurant.web}
+                  href={emergency.web}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
                 >
-                  {restaurant.web}
+                  {emergency.web}
                 </a>
               </p>
             </div>
@@ -228,10 +190,10 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
               comments.map((c) => (
                 <div key={c.id}>
                   <p>
-                    <span className="text-accent mr-3">{c.userName}</span>{" "}
+                    <span className="font-bold mr-3">{c.userName}</span>{" "}
                     {c.comments}
                   </p>
-                  <span className="text-secondary">{renderStars(c.stars)}</span>
+                  <span className="font-bold">⭐ {c.stars}</span>
                   <hr />
                 </div>
               ))}
@@ -242,10 +204,10 @@ const RestaurantModal = ({ isOpen, onClose, restaurant }) => {
   );
 };
 
-RestaurantModal.propTypes = {
+EmergencyModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  restaurant: PropTypes.shape({
+  emergency: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
@@ -267,4 +229,4 @@ RestaurantModal.propTypes = {
   }).isRequired,
 };
 
-export default RestaurantModal;
+export default EmergencyModal;

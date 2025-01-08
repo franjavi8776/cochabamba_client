@@ -22,6 +22,7 @@ import GymForm from "./components/gym/GymForm";
 import TourismForm from "./components/tourism/TourismForm";
 import MovieTheaterForm from "./components/movieTheater/MovieTheaterForm";
 import MovieTheater from "./components/movieTheater/Movie";
+import EmergencyForm from "./components/emergency/EmergencyForm";
 
 function App() {
   const token = useSelector((state) => state.token);
@@ -95,6 +96,14 @@ function App() {
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <MovieTheaterForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/emergency_form"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <EmergencyForm />
               </ProtectedRoute>
             }
           />

@@ -42,7 +42,7 @@ const HomeModal = ({ isOpen, onClose }) => {
           <button onClick={() => navigate("/tourism_form")}>
             <p className="py-2 px-4 hover:text-secondary ">Turismo</p>
           </button>
-          <button>
+          <button onClick={() => navigate("/emergency_form")}>
             <p className="py-2 px-4  hover:text-secondary">Emergencias</p>
           </button>
         </div>
